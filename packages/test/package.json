@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc --build",
-    "test": "node --test './dist/src/**/*.test.js'"
+    "test": "node --test './dist/src/**/*.test.js'",
+    "test-us": "node --test --test-update-snapshots './dist/src/**/*.test.js'"
   },
   "author": "",
   "license": "ISC",
