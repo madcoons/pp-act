@@ -1,0 +1,23 @@
+{
+  "name": "@pp-act/core",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "exports": {
+    "./execute-script.js": "./dist/src/execute-script.js",
+    "./load-iframe.js": "./dist/src/load-iframe.js",
+    "./message.js": "./dist/src/message.js",
+    "./message-action.js": "./dist/src/message-action.js",
+    "./message-result.js": "./dist/src/message-result.js",
+    "./process-message.js": "./dist/src/process-message.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "typescript": "^5.8.3"
+  }
+}

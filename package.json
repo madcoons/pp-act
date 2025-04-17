@@ -1,0 +1,23 @@
+{
+  "name": "@pp-act/pp-act",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madcoons/pp-act.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madcoons/pp-act/issues"
+  },
+  "homepage": "https://github.com/madcoons/pp-act#readme",
+  "workspaces": [
+    "packages/*"
+  ]
+}
