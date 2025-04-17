@@ -56,13 +56,20 @@ const loadIndex = async (content: string) => {
   };
 };
 
-export const runInBrowser = async (methodBody: string) => {
+export const runInBrowser = async <TRes>(methodBody: string) => {
   const browser = await puppeteer.launch({
     headless: false,
     devtools: true,
   });
 
   try {
+    // Method body syntax check
+    new Function(`
+      return async function(...args) {
+        ${methodBody}
+      }
+      `);
+
     const page = await browser.newPage();
 
     const htmlInfo = await loadIndex(`
@@ -87,6 +94,18 @@ export const runInBrowser = async (methodBody: string) => {
           </body>
             <script>
               const delay = (ms) => new Promise(r => setTimeout(r, ms));
+
+              const bufferToBase64 = (buffer) => {
+                const blob = new Blob([buffer], { type: "application/octet-stream" });
+                return new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onerror = reject;
+                  reader.onload  = () => {
+                    resolve(reader.result.split(',', 2)[1]);
+                  };
+                  reader.readAsDataURL(blob);
+                });
+              }
 
               const getIFrame = async () => {
                 const { loadIFrame } = await import("/core/dist/src/load-iframe.js");
@@ -113,7 +132,7 @@ export const runInBrowser = async (methodBody: string) => {
     try {
       await page.goto(htmlInfo.baseUrl);
       // await new Promise((r) => setTimeout(r, 100_000));
-      const res = await page.evaluate("run()");
+      const res = await page.evaluate<unknown[], () => Promise<TRes>>("run()");
       return res;
     } finally {
       await htmlInfo.close();

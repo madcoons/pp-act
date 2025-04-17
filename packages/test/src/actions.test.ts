@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { describe, it } from "node:test";
 import { runInBrowser } from "./run-in-browser.js";
-import type { Message } from "@pp-act/core/message.js";
+import "./update-snapshot-path.js";
 
 describe("Message Processor", () => {
   it("should load from buffer", async () => {
@@ -27,5 +27,34 @@ describe("Message Processor", () => {
       `);
 
     assert.equal(docsCount, 1);
+  });
+
+  it("should export png", async (t) => {
+    const pngBase64 = await runInBrowser<string>(`
+      const res = await fetch("/data/simple.psd").then(x => x.arrayBuffer());
+
+      const message = {
+        id: "1",
+        actions: [
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "some-id",
+            buffer: res,
+          },
+          {
+            type: "MessageActionExport",
+            sourceId: "some-id",
+            targetId: "exported-png",
+            mimeType: "image/png",
+          },
+        ],
+      };
+
+      const procRes = await processMessage(iframe, message);
+      const png = procRes.find(x => x.targetId === "exported-png").data;
+      return bufferToBase64(png);
+      `);
+
+    t.assert.snapshot(pngBase64);
   });
 });
