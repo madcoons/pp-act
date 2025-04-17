@@ -107,6 +107,17 @@ export const runInBrowser = async <TRes>(methodBody: string) => {
                 });
               }
 
+              const blobToDataURL = (blob) => {
+                return new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onerror = reject;
+                  reader.onload  = () => {
+                    resolve(reader.result);
+                  };
+                  reader.readAsDataURL(blob);
+                });
+              }
+
               const getIFrame = async () => {
                 const { loadIFrame } = await import("/core/dist/src/load-iframe.js");
                 const iframe = await loadIFrame(iframe => {

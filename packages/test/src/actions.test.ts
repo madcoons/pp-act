@@ -28,6 +28,31 @@ describe("Message Processor", () => {
 
     assert.equal(docsCount, 1);
   });
+  it("should load from url", async () => {
+    const docsCount = await runInBrowser(`
+      const resBlob = await fetch("/data/simple.psd").then(x => x.blob());
+      const dataUrl = await blobToDataURL(resBlob);
+
+      const message = {
+        id: "1",
+        actions: [
+          {
+            type: "MessageActionLoadFromUrl",
+            targetId: "some-id",
+            url: dataUrl,
+          },
+        ],
+      };
+
+      await processMessage(iframe, message);
+
+      const docsCount = await executeScript(iframe, "app.echoToOE('' + app.documents.length)");
+      
+      return parseInt(docsCount);
+      `);
+
+    assert.equal(docsCount, 1);
+  });
 
   it("should export png", async (t) => {
     const pngBase64 = await runInBrowser<string>(`
