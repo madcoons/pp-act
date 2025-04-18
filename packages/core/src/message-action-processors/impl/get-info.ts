@@ -26,6 +26,62 @@ function mapUnitValue(value) {
     return value.value;
 }
 
+function mapBlendMode(value) {
+    if (value === BlendMode.COLORBLEND) {
+        return "COLORBLEND";
+    } else if (value === BlendMode.COLORBURN) {
+        return "COLORBURN";
+    } else if (value === BlendMode.COLORDODGE) {
+        return "COLORDODGE";
+    } else if (value === BlendMode.DARKEN) {
+        return "DARKEN";
+    } else if (value === BlendMode.DIFFERENCE) {
+        return "DIFFERENCE";
+    } else if (value === BlendMode.DISSOLVE) {
+        return "DISSOLVE";
+    } else if (value === BlendMode.DIVIDE) {
+        return "DIVIDE";
+    } else if (value === BlendMode.EXCLUSION) {
+        return "EXCLUSION";
+    } else if (value === BlendMode.HARDLIGHT) {
+        return "HARDLIGHT";
+    } else if (value === BlendMode.HARDMIX) {
+        return "HARDMIX";
+    } else if (value === BlendMode.HUE) {
+        return "HUE";
+    } else if (value === BlendMode.LIGHTEN) {
+        return "LIGHTEN";
+    } else if (value === BlendMode.LINEARBURN) {
+        return "LINEARBURN";
+    } else if (value === BlendMode.LINEARDODGE) {
+        return "LINEARDODGE";
+    } else if (value === BlendMode.LINEARLIGHT) {
+        return "LINEARLIGHT";
+    } else if (value === BlendMode.LUMINOSITY) {
+        return "LUMINOSITY";
+    } else if (value === BlendMode.MULTIPLY) {
+        return "MULTIPLY";
+    } else if (value === BlendMode.NORMAL) {
+        return "NORMAL";
+    } else if (value === BlendMode.OVERLAY) {
+        return "OVERLAY";
+    } else if (value === BlendMode.PASSTHROUGH) {
+        return "PASSTHROUGH";
+    } else if (value === BlendMode.PINLIGHT) {
+        return "PINLIGHT";
+    } else if (value === BlendMode.SATURATION) {
+        return "SATURATION";
+    } else if (value === BlendMode.SCREEN) {
+        return "SCREEN";
+    } else if (value === BlendMode.SOFTLIGHT) {
+        return "SOFTLIGHT";
+    } else if (value === BlendMode.SUBTRACT) {
+        return "SUBTRACT";
+    } else if (value === BlendMode.VIVIDLIGHT) {
+        return "VIVIDLIGHT";
+    }
+}
+
 function mapJustification(value) {
     if (value === Justification.CENTER) {
         return "CENTER";
@@ -95,7 +151,7 @@ function mapLayer(input, res) {
     if (input.typename === "ArtLayer") {
         res.allLocked = input.allLocked;
         // res.blendMode = input.blendMode;
-        // res.bounds = input.bounds;
+        res.bounds = mapArray(input.bounds, mapUnitValue);
         res.boundsNoEffects = input.boundsNoEffects;
         res.fillOpacity = input.fillOpacity;
         res.grouped = input.grouped;
@@ -208,6 +264,9 @@ function mapLayer(input, res) {
             res.textItem.size = mapUnitValue(input.textItem.size);
             res.textItem.spaceAfter = mapUnitValue(input.textItem.spaceAfter);
             res.textItem.spaceBefore = mapUnitValue(input.textItem.spaceBefore);
+            res.textItem.useAutoLeading = input.textItem.useAutoLeading;
+            res.textItem.verticalScale = input.textItem.verticalScale;
+            // res.textItem.width = mapUnitValue(input.textItem.width);
         }
 
         res.transparentPixelsLocked = input.transparentPixelsLocked;
@@ -216,8 +275,8 @@ function mapLayer(input, res) {
         res.visible = input.visible;
     } else if (input.typename === "LayerSet") {
         res.allLocked = input.allLocked;
-        // res.blendMode = input.blendMode;
-        // res.bounds = input.bounds;
+        res.blendMode = mapBlendMode(input.blendMode);
+        res.bounds = mapArray(input.bounds, mapUnitValue);
         // res.enabledChannels = input.enabledChannels;
 
         res.layers = [];
