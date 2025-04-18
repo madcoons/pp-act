@@ -1,8 +1,9 @@
 {
-  "name": "@pp-act/pp-act",
+  "name": "pp-act",
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "private": false,
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",

@@ -12,7 +12,7 @@ const loadIndex = async (content: string) => {
   });
 
   const getCoreModulePath = (module: string) => {
-    const moduleUrl = import.meta.resolve(`@pp-act/core/${module}`);
+    const moduleUrl = import.meta.resolve(`pp-act-core/${module}`);
     return url.fileURLToPath(moduleUrl);
   };
 

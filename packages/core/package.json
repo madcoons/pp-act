@@ -1,19 +1,44 @@
 {
-  "name": "@pp-act/core",
+  "name": "pp-act-core",
   "version": "1.0.0",
   "type": "module",
+  "private": false,
   "scripts": {
     "build": "tsc --build"
   },
   "exports": {
-    "./document-info.js": "./dist/src/document-info.js",
-    "./execute-script.js": "./dist/src/execute-script.js",
-    "./layer-info.js": "./dist/src/layer-info.js",
-    "./load-iframe.js": "./dist/src/load-iframe.js",
-    "./message-action.js": "./dist/src/message-action.js",
-    "./message-result.js": "./dist/src/message-result.js",
-    "./message.js": "./dist/src/message.js",
-    "./process-message.js": "./dist/src/process-message.js"
+    "./document-info.js": {
+      "types": "./dist/src/document-info.d.ts",
+      "default": "./dist/src/document-info.js"
+    },
+    "./execute-script.js": {
+      "types": "./dist/src/execute-script.d.ts",
+      "default": "./dist/src/execute-script.js"
+    },
+    "./layer-info.js": {
+      "types": "./dist/src/layer-info.d.ts",
+      "default": "./dist/src/layer-info.js"
+    },
+    "./load-iframe.js": {
+      "types": "./dist/src/load-iframe.d.ts",
+      "default": "./dist/src/load-iframe.js"
+    },
+    "./message-action.js": {
+      "types": "./dist/src/message-action.d.ts",
+      "default": "./dist/src/message-action.js"
+    },
+    "./message-result.js": {
+      "types": "./dist/src/message-result.d.ts",
+      "default": "./dist/src/message-result.js"
+    },
+    "./message.js": {
+      "types": "./dist/src/message.d.ts",
+      "default": "./dist/src/message.js"
+    },
+    "./process-message.js": {
+      "types": "./dist/src/process-message.d.ts",
+      "default": "./dist/src/process-message.js"
+    }
   },
   "files": [
     "dist/"
