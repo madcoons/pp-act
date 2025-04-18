@@ -150,7 +150,7 @@ function mapLayer(input, res) {
     res.typename = input.typename;
     if (input.typename === "ArtLayer") {
         res.allLocked = input.allLocked;
-        // res.blendMode = input.blendMode;
+        res.blendMode = mapBlendMode(input.blendMode);
         res.bounds = mapArray(input.bounds, mapUnitValue);
         res.boundsNoEffects = input.boundsNoEffects;
         res.fillOpacity = input.fillOpacity;

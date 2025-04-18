@@ -24,10 +24,17 @@ exports[`Message Processor > should get info 1`] = `
     {
       "typename": "LayerSet",
       "allLocked": false,
+      "bounds": [
+        0,
+        0,
+        0,
+        0
+      ],
       "layers": [
         {
           "typename": "ArtLayer",
           "allLocked": false,
+          "blendMode": "NORMAL",
           "bounds": [
             -2,
             -4,
@@ -66,6 +73,7 @@ exports[`Message Processor > should get info 1`] = `
         {
           "typename": "ArtLayer",
           "allLocked": false,
+          "blendMode": "NORMAL",
           "bounds": [
             0,
             0,
@@ -91,6 +99,7 @@ exports[`Message Processor > should get info 1`] = `
     {
       "typename": "ArtLayer",
       "allLocked": false,
+      "blendMode": "NORMAL",
       "bounds": [
         0,
         0,
@@ -111,6 +120,7 @@ exports[`Message Processor > should get info 1`] = `
     {
       "typename": "ArtLayer",
       "allLocked": false,
+      "blendMode": "NORMAL",
       "bounds": [
         0,
         0,
@@ -131,6 +141,7 @@ exports[`Message Processor > should get info 1`] = `
     {
       "typename": "ArtLayer",
       "allLocked": false,
+      "blendMode": "NORMAL",
       "bounds": [
         0,
         0,
