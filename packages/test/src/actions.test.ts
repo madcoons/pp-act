@@ -77,7 +77,7 @@ describe("Message Processor", { concurrency: true }, () => {
 
       const procRes = await processMessage(iframe, message);
       const image = procRes.find(x => x.targetId === "exported").data;
-      return bufferToBase64(image);
+      return await bufferToBase64(image);
       `);
 
     t.assert.snapshot(imageBase64);
@@ -107,7 +107,7 @@ describe("Message Processor", { concurrency: true }, () => {
 
       const procRes = await processMessage(iframe, message);
       const image = procRes.find(x => x.targetId === "exported").data;
-      return bufferToBase64(image);
+      return await bufferToBase64(image);
       `);
 
     t.assert.snapshot(imageBase64);
@@ -137,10 +137,53 @@ describe("Message Processor", { concurrency: true }, () => {
 
       const procRes = await processMessage(iframe, message);
       const image = procRes.find(x => x.targetId === "exported").data;
-      return bufferToBase64(image);
+      return await bufferToBase64(image);
       `);
 
     // Webp output is not the same for the same input
     t.assert.snapshot(imageBase64.length);
+  });
+
+  it("should export 2 png", async (t) => {
+    const imagesBase64 = await runInBrowser<string>(`
+      const res1 = await fetch("/data/simple.psd").then(x => x.arrayBuffer());
+      const res2 = await fetch("/data/simple-red.psd").then(x => x.arrayBuffer());
+
+      const message = {
+        id: "1",
+        actions: [
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "some-id1",
+            buffer: res1,
+          },
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "some-id2",
+            buffer: res2,
+          },
+          {
+            type: "MessageActionExport",
+            sourceId: "some-id1",
+            targetId: "exported1",
+            mimeType: "image/png",
+          },
+          {
+            type: "MessageActionExport",
+            sourceId: "some-id2",
+            targetId: "exported2",
+            mimeType: "image/png",
+          },
+        ],
+      };
+
+      const procRes = await processMessage(iframe, message);
+      const image1 = procRes.find(x => x.targetId === "exported1").data;
+      const image2 = procRes.find(x => x.targetId === "exported2").data;
+      
+      return [await bufferToBase64(image1), await bufferToBase64(image2)];
+      `);
+
+    t.assert.snapshot(imagesBase64);
   });
 });

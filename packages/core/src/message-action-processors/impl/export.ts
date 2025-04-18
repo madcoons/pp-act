@@ -7,6 +7,11 @@ class MessageActionProcessorExport implements MessageActionProcessor {
   constructor(private action: MessageActionExport) {}
 
   async process(state: MessageActionProcessorState): Promise<void> {
+    const sourceIndex = state.documentKeyToIndexMap.get(this.action.sourceId);
+    if (sourceIndex === undefined) {
+      throw new Error(`Source id '${this.action.sourceId}' is not found.`);
+    }
+
     let format: string;
     if (this.action.mimeType === "image/png") {
       format = "png";
@@ -22,7 +27,8 @@ class MessageActionProcessorExport implements MessageActionProcessor {
 
     const script =
       `app.echoToOE("expect-additional-done");\n` +
-      `app.documents[0].saveToOE(${JSON.stringify(format)});\n`;
+      `app.activeDocument = app.documents[${JSON.stringify(sourceIndex)}];\n` +
+      `app.activeDocument.saveToOE(${JSON.stringify(format)});\n`;
 
     const data = await executeScript(state.iframe, script);
     if (data instanceof ArrayBuffer) {
