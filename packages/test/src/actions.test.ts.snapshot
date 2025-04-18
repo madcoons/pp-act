@@ -22,6 +22,71 @@ exports[`Message Processor > should get info 1`] = `
   "name": "file.psd",
   "layers": [
     {
+      "typename": "LayerSet",
+      "allLocked": false,
+      "layers": [
+        {
+          "typename": "ArtLayer",
+          "allLocked": false,
+          "fillOpacity": 100,
+          "grouped": false,
+          "isBackgroundLayer": false,
+          "kind": "TEXT",
+          "name": "text layer",
+          "opacity": 100,
+          "pixelsLocked": false,
+          "positionLocked": false,
+          "transparentPixelsLocked": false,
+          "visible": true
+        },
+        {
+          "typename": "ArtLayer",
+          "allLocked": false,
+          "fillOpacity": 100,
+          "grouped": false,
+          "isBackgroundLayer": false,
+          "kind": "NORMAL",
+          "name": "basic layer",
+          "opacity": 100,
+          "pixelsLocked": false,
+          "positionLocked": false,
+          "transparentPixelsLocked": false,
+          "visible": true
+        }
+      ],
+      "name": "Folder 1",
+      "opacity": 100,
+      "visible": true
+    },
+    {
+      "typename": "ArtLayer",
+      "allLocked": false,
+      "fillOpacity": 100,
+      "grouped": false,
+      "isBackgroundLayer": false,
+      "kind": "SOLIDFILL",
+      "name": "Layer 3 - Fill",
+      "opacity": 100,
+      "pixelsLocked": false,
+      "positionLocked": false,
+      "transparentPixelsLocked": false,
+      "visible": true
+    },
+    {
+      "typename": "ArtLayer",
+      "allLocked": false,
+      "fillOpacity": 100,
+      "grouped": false,
+      "isBackgroundLayer": false,
+      "kind": "NORMAL",
+      "name": "Layer 2 - With mask",
+      "opacity": 100,
+      "pixelsLocked": false,
+      "positionLocked": false,
+      "transparentPixelsLocked": false,
+      "visible": true
+    },
+    {
       "typename": "ArtLayer",
       "allLocked": false,
       "fillOpacity": 100,

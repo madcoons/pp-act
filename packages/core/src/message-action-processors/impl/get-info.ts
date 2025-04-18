@@ -77,10 +77,23 @@ function mapLayer(input, res) {
         // res.vectorMaskDensity = input.vectorMaskDensity;
         // res.vectorMaskFeather = input.vectorMaskFeather;
         res.visible = input.visible;
-    } else if (input.typename === "ArtLayer") {
+    } else if (input.typename === "LayerSet") {
+        res.allLocked = input.allLocked;
+        // res.blendMode = input.blendMode;
+        // res.bounds = input.bounds;
+        // res.enabledChannels = input.enabledChannels;
+
         res.layers = [];
         for (let i = 0; i < input.layers.length; i++) {
+            const deepRes = {};
+            mapLayer(input.layers[i], deepRes);
+            res.layers.push(deepRes);
         }
+
+        // res.linkedLayers = input.linkedLayers;
+        res.name = input.name;
+        res.opacity = input.opacity;
+        res.visible = input.visible;
      }
 }
 

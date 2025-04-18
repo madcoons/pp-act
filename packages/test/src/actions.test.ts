@@ -189,7 +189,7 @@ describe("Message Processor", { concurrency: true }, () => {
 
   it("should get info", async (t) => {
     const info = await runInBrowser<string>(`
-      const res = await fetch("/data/simple.psd").then(x => x.arrayBuffer());
+      const res = await fetch("/data/complex-for-get-info.psd").then(x => x.arrayBuffer());
 
       const message = {
         id: "1",
