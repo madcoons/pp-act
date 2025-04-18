@@ -70,7 +70,8 @@ export const runInBrowser = async <TRes>(methodBody: string) => {
       }
       `);
 
-    const page = await browser.newPage();
+    const pages = await browser.pages();
+    const page = pages[0] ?? (await browser.newPage());
 
     const htmlInfo = await loadIndex(`
         <!DOCTYPE html>
