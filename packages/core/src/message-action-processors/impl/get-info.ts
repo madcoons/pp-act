@@ -309,7 +309,6 @@ function mapDocumentMode(value) {
     }
 }
 
-
 let res = {};
 
 res.name = app.activeDocument.name;
