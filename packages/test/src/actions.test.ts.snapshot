@@ -16,3 +16,25 @@ exports[`Message Processor > should export png 1`] = `
 exports[`Message Processor > should export webp 1`] = `
 1284
 `;
+
+exports[`Message Processor > should get info 1`] = `
+{
+  "name": "file.psd",
+  "layers": [
+    {
+      "typename": "ArtLayer",
+      "allLocked": false,
+      "fillOpacity": 100,
+      "grouped": false,
+      "isBackgroundLayer": false,
+      "kind": "NORMAL",
+      "name": "Background",
+      "opacity": 100,
+      "pixelsLocked": false,
+      "positionLocked": true,
+      "transparentPixelsLocked": false,
+      "visible": true
+    }
+  ]
+}
+`;

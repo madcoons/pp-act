@@ -34,7 +34,7 @@ class MessageActionProcessorExport implements MessageActionProcessor {
     if (data instanceof ArrayBuffer) {
       state.result.push({
         type: "MessageResultExport",
-        targetId: this.action.targetId,
+        id: this.action.resultId,
         data: data,
       });
     } else {

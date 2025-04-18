@@ -69,14 +69,14 @@ describe("Message Processor", { concurrency: true }, () => {
           {
             type: "MessageActionExport",
             sourceId: "some-id",
-            targetId: "exported",
+            resultId: "exported",
             mimeType: "image/png",
           },
         ],
       };
 
       const procRes = await processMessage(iframe, message);
-      const image = procRes.find(x => x.targetId === "exported").data;
+      const image = procRes.find(x => x.id === "exported").data;
       return await bufferToBase64(image);
       `);
 
@@ -98,7 +98,7 @@ describe("Message Processor", { concurrency: true }, () => {
           {
             type: "MessageActionExport",
             sourceId: "some-id",
-            targetId: "exported",
+            resultId: "exported",
             mimeType: "image/jpeg",
             quality: 0.8,
           },
@@ -106,7 +106,7 @@ describe("Message Processor", { concurrency: true }, () => {
       };
 
       const procRes = await processMessage(iframe, message);
-      const image = procRes.find(x => x.targetId === "exported").data;
+      const image = procRes.find(x => x.id === "exported").data;
       return await bufferToBase64(image);
       `);
 
@@ -128,7 +128,7 @@ describe("Message Processor", { concurrency: true }, () => {
           {
             type: "MessageActionExport",
             sourceId: "some-id",
-            targetId: "exported",
+            resultId: "exported",
             mimeType: "image/webp",
             quality: 0.8,
           },
@@ -136,7 +136,7 @@ describe("Message Processor", { concurrency: true }, () => {
       };
 
       const procRes = await processMessage(iframe, message);
-      const image = procRes.find(x => x.targetId === "exported").data;
+      const image = procRes.find(x => x.id === "exported").data;
       return await bufferToBase64(image);
       `);
 
@@ -165,25 +165,54 @@ describe("Message Processor", { concurrency: true }, () => {
           {
             type: "MessageActionExport",
             sourceId: "some-id1",
-            targetId: "exported1",
+            resultId: "exported1",
             mimeType: "image/png",
           },
           {
             type: "MessageActionExport",
             sourceId: "some-id2",
-            targetId: "exported2",
+            resultId: "exported2",
             mimeType: "image/png",
           },
         ],
       };
 
       const procRes = await processMessage(iframe, message);
-      const image1 = procRes.find(x => x.targetId === "exported1").data;
-      const image2 = procRes.find(x => x.targetId === "exported2").data;
+      const image1 = procRes.find(x => x.id === "exported1").data;
+      const image2 = procRes.find(x => x.id === "exported2").data;
       
       return [await bufferToBase64(image1), await bufferToBase64(image2)];
       `);
 
     t.assert.snapshot(imagesBase64);
+  });
+
+  it("should get info", async (t) => {
+    const info = await runInBrowser<string>(`
+      const res = await fetch("/data/simple.psd").then(x => x.arrayBuffer());
+
+      const message = {
+        id: "1",
+        actions: [
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "some-id",
+            buffer: res,
+          },
+          {
+            type: "MessageActionGetInfo",
+            sourceId: "some-id",
+            resultId: "info"
+          },
+        ],
+      };
+
+      const procRes = await processMessage(iframe, message);
+      const info = procRes.find(x => x.id === "info").info;
+      
+      return JSON.stringify(info);
+      `);
+
+    t.assert.snapshot(JSON.parse(info));
   });
 });

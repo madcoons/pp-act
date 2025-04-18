@@ -1,9 +1,15 @@
 export interface MessageActionExport {
   type: "MessageActionExport";
   sourceId: string;
-  targetId: string;
+  resultId: string;
   mimeType: "image/png" | "image/jpeg" | "image/webp";
   quality?: number;
+}
+
+export interface MessageActionGetInfo {
+  type: "MessageActionGetInfo";
+  sourceId: string;
+  resultId: string;
 }
 
 export interface MessageActionLoadFromBuffer {
@@ -20,5 +26,6 @@ export interface MessageActionLoadFromUrl {
 
 export type MessageAction =
   | MessageActionExport
+  | MessageActionGetInfo
   | MessageActionLoadFromBuffer
   | MessageActionLoadFromUrl;

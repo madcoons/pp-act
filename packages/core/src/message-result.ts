@@ -1,7 +1,15 @@
+import type { DocumentInfo } from "./document-info.js";
+
 export interface MessageResultExport {
   type: "MessageResultExport";
-  targetId: string;
+  id: string;
   data: ArrayBuffer;
 }
 
-export type MessageResult = MessageResultExport;
+export interface MessageResultGetInfo {
+  type: "MessageResultGetInfo";
+  id: string;
+  info: DocumentInfo;
+}
+
+export type MessageResult = MessageResultExport | MessageResultGetInfo;

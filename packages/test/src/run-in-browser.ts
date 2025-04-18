@@ -56,10 +56,14 @@ const loadIndex = async (content: string) => {
   };
 };
 
-export const runInBrowser = async <TRes>(methodBody: string) => {
+export const runInBrowser = async <TRes>(
+  methodBody: string,
+  debug?: boolean
+) => {
   const browser = await puppeteer.launch({
-    headless: false,
-    devtools: true,
+    dumpio: debug,
+    headless: !debug,
+    devtools: debug,
   });
 
   try {
