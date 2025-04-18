@@ -7,6 +7,89 @@ const populateJsonScript = `
 let res = {};
 res.name = app.activeDocument.name;
 
+function mapArray(array, cb) {
+    if (!array) {
+        return array;
+    }
+    const res = [];
+    for (let i = 0; i < array.length; i++) {
+        res.push(cb(array[i]));
+    }
+    return res;
+}
+
+function mapUnitValue(value) {
+    if (!value && value !== 0) {
+        return undefined;
+    }
+
+    return value.value;
+}
+
+function mapJustification(value) {
+    if (value === Justification.CENTER) {
+        return "CENTER";
+    } else if (value === Justification.CENTERJUSTIFIED) {
+        return "CENTERJUSTIFIED";
+    } else if (value === Justification.FULLYJUSTIFIED) {
+        return "FULLYJUSTIFIED";
+    } else if (value === Justification.LEFT) {
+        return "LEFT";
+    } else if (value === Justification.LEFTJUSTIFIED) {
+        return "LEFTJUSTIFIED";
+    } else if (value === Justification.RIGHT) {
+        return "RIGHT";
+    } else if (value === Justification.RIGHTJUSTIFIED) {
+        return "RIGHTJUSTIFIED";
+    }
+}
+
+function mapTextType(value) {
+    if (value === TextType.PARAGRAPHTEXT) {
+        return "PARAGRAPHTEXT";
+    } else if (value === TextType.POINTTEXT) {
+        return "POINTTEXT";
+    }
+}
+
+function mapLanguage(value) {
+    if (value === "BRAZILLIANPORTUGUESE") {
+        return "BRAZILLIANPORTUGUESE";
+    } else if (value === "CANADIANFRENCH") {
+        return "CANADIANFRENCH";
+    } else if (value === "DANISH") {
+        return "DANISH";
+    } else if (value === "DUTCH") {
+        return "DUTCH";
+    } else if (value === "ENGLISHUK") {
+        return "ENGLISHUK";
+    } else if (value === "ENGLISHUSA") {
+        return "ENGLISHUSA";
+    } else if (value === "FINNISH") {
+        return "FINNISH";
+    } else if (value === "FRENCH") {
+        return "FRENCH";
+    } else if (value === "GERMAN") {
+        return "GERMAN";
+    } else if (value === "ITALIAN") {
+        return "ITALIAN";
+    } else if (value === "NORWEGIAN") {
+        return "NORWEGIAN";
+    } else if (value === "NYNORSKNORWEGIAN") {
+        return "NYNORSKNORWEGIAN";
+    } else if (value === "OLDGERMAN") {
+        return "OLDGERMAN";
+    } else if (value === "PORTUGUESE") {
+        return "PORTUGUESE";
+    } else if (value === "SPANISH") {
+        return "SPANISH";
+    } else if (value === "SWEDISH") {
+        return "SWEDISH";
+    } else if (value === "SWISSGERMAN") {
+        return "SWISSGERMAN";
+    }
+}
+
 function mapLayer(input, res) {
     res.typename = input.typename;
     if (input.typename === "ArtLayer") {
@@ -93,7 +176,38 @@ function mapLayer(input, res) {
             res.textItem.firstLineIndent = input.textItem.firstLineIndent;
             res.textItem.font = input.textItem.font;
             res.textItem.hangingPunctation = input.textItem.hangingPunctation;
-            // res.textItem.height = input.textItem.height; // TODO: only in PARAGRAPHTEXT
+            if (res.textItem.kind === TextType.PARAGRAPHTEXT) {
+                res.textItem.height = mapUnitValue(input.textItem.height);
+            }
+            res.textItem.horizontalScale = input.textItem.horizontalScale;
+            res.textItem.hyphenateAfterFirst = input.textItem.hyphenateAfterFirst;
+            res.textItem.hyphenateBeforeLast = input.textItem.hyphenateBeforeLast;
+            res.textItem.hyphenateCapitalWords = input.textItem.hyphenateCapitalWords;
+            res.textItem.hyphenateWordsLongerThen = input.textItem.hyphenateWordsLongerThen;
+            res.textItem.hyphenation = input.textItem.hyphenation;
+            res.textItem.hyphenationZone = input.textItem.hyphenationZone;
+            res.textItem.hyphenLimit = input.textItem.hyphenLimit;
+            res.textItem.justification = input.textItem.justification;
+            res.textItem.justification = mapJustification(input.textItem.justification);
+            res.textItem.kind = mapTextType(input.textItem.kind);
+            res.textItem.language = mapLanguage(input.textItem.language);
+            res.textItem.language = mapLanguage(input.textItem.language);
+            res.textItem.leading = mapUnitValue(input.textItem.leading);
+            res.textItem.leftIndent = mapUnitValue(input.textItem.leftIndent);
+            res.textItem.ligatures = input.textItem.ligatures;
+            res.textItem.maximumGlyphScaling = input.textItem.maximumGlyphScaling;
+            res.textItem.maximumLetterScaling = input.textItem.maximumLetterScaling;
+            res.textItem.maximumWordScaling = input.textItem.maximumWordScaling;
+            res.textItem.minimumGlyphScaling = input.textItem.minimumGlyphScaling;
+            res.textItem.minimumLetterScaling = input.textItem.minimumLetterScaling;
+            res.textItem.minimumWordScaling = input.textItem.minimumWordScaling;
+            res.textItem.noBreak = input.textItem.noBreak;
+            res.textItem.oldStyle = input.textItem.oldStyle;
+            res.textItem.position = mapArray(input.textItem.position, mapUnitValue);
+            res.textItem.rightIndent = mapUnitValue(input.textItem.rightIndent);
+            res.textItem.size = mapUnitValue(input.textItem.size);
+            res.textItem.spaceAfter = mapUnitValue(input.textItem.spaceAfter);
+            res.textItem.spaceBefore = mapUnitValue(input.textItem.spaceBefore);
         }
 
         res.transparentPixelsLocked = input.transparentPixelsLocked;

@@ -40,7 +40,17 @@ exports[`Message Processor > should get info 1`] = `
             "contents": "a",
             "fauxBold": false,
             "fauxItalic": false,
-            "font": "DejaVuSans"
+            "font": "DejaVuSans",
+            "horizontalScale": 100,
+            "justification": "LEFT",
+            "kind": "POINTTEXT",
+            "leading": 0,
+            "ligatures": true,
+            "position": [
+              -3,
+              10
+            ],
+            "size": 24
           },
           "transparentPixelsLocked": false,
           "visible": true
