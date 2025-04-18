@@ -1,4 +1,4 @@
-import { executeScript } from "../../execute-script.js";
+import { executeScript } from "../../iframe-brigde/execute-script.js";
 import type { MessageActionExport } from "../../message-action.js";
 import type { MessageActionProcessorState } from "../message-action-processor-state.js";
 import type { MessageActionProcessor } from "../message-action-processor.js";

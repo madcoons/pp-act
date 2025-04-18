@@ -1,5 +1,5 @@
-import { executeScript } from "../../execute-script.js";
-import { loadBuffer } from "../../load-buffer.js";
+import { executeScript } from "../../iframe-brigde/execute-script.js";
+import { loadBuffer } from "../../iframe-brigde/load-buffer.js";
 import type { MessageActionLoadFromUrl } from "../../message-action.js";
 import type { MessageActionProcessorState } from "../message-action-processor-state.js";
 import type { MessageActionProcessor } from "../message-action-processor.js";
