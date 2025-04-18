@@ -4,9 +4,6 @@ import type { MessageActionProcessorState } from "../message-action-processor-st
 import type { MessageActionProcessor } from "../message-action-processor.js";
 
 const populateJsonScript = `
-let res = {};
-res.name = app.activeDocument.name;
-
 function mapArray(array, cb) {
     if (!array) {
         return array;
@@ -292,6 +289,34 @@ function mapLayer(input, res) {
         res.visible = input.visible;
     }
 }
+function mapDocumentMode(value) {
+    if (value === DocumentMode.BITMAP) {
+        return "BITMAP";
+    } else if (value === DocumentMode.CMYK) {
+        return "CMYK";
+    } else if (value === DocumentMode.DUOTONE) {
+        return "DUOTONE";
+    } else if (value === DocumentMode.GRAYSCALE) {
+        return "GRAYSCALE";
+    } else if (value === DocumentMode.INDEXEDCOLOR) {
+        return "INDEXEDCOLOR";
+    } else if (value === DocumentMode.LAB) {
+        return "LAB";
+    } else if (value === DocumentMode.MULTICHANNEL) {
+        return "MULTICHANNEL";
+    } else if (value === DocumentMode.RGB) {
+        return "RGB";
+    }
+}
+
+
+let res = {};
+
+res.name = app.activeDocument.name;
+res.height = app.activeDocument.height;
+res.mode = mapDocumentMode(app.activeDocument.mode);
+res.resolution = app.activeDocument.resolution;
+res.width = app.activeDocument.width;
 
 res.layers = [];
 for (let i = 0; i < app.activeDocument.layers.length; i++) {

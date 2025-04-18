@@ -20,6 +20,10 @@ exports[`Message Processor > should export webp 1`] = `
 exports[`Message Processor > should get info 1`] = `
 {
   "name": "file.psd",
+  "height": 10,
+  "mode": "RGB",
+  "resolution": 72,
+  "width": 10,
   "layers": [
     {
       "typename": "LayerSet",
