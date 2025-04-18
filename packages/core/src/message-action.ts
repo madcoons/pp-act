@@ -8,13 +8,13 @@ export interface MessageActionExport {
 
 export interface MessageActionLoadFromBuffer {
   type: "MessageActionLoadFromBuffer";
-  targetId: string;
+  targetId?: string;
   buffer: ArrayBuffer;
 }
 
 export interface MessageActionLoadFromUrl {
   type: "MessageActionLoadFromUrl";
-  targetId: string;
+  targetId?: string;
   url: string;
 }
 
