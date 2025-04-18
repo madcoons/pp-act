@@ -72,7 +72,30 @@ function mapLayer(input, res) {
         res.opacity = input.opacity;
         res.pixelsLocked = input.pixelsLocked;
         res.positionLocked = input.positionLocked;
-        // res.textItem = input.textItem;
+
+        // Map textItem
+        if (input.kind === LayerKind.TEXT) {
+            res.textItem = {};
+            res.textItem.alternateLigatures = input.textItem.alternateLigatures;
+            // res.textItem.antiAliasMethod = input.textItem.antiAliasMethod;
+            // res.textItem.autoKerning = input.textItem.autoKerning;
+            res.textItem.autoLeadingAmount = input.textItem.autoLeadingAmount;
+            // res.textItem.baselineShift = input.textItem.baselineShift;
+            res.textItem.capitalization = input.textItem.capitalization;
+            // res.textItem.color = input.textItem.color;
+            res.textItem.contents = input.textItem.contents;
+            res.textItem.desiredGlyphScaling = input.textItem.desiredGlyphScaling;
+            res.textItem.desiredLetterScaling = input.textItem.desiredLetterScaling;
+            res.textItem.desiredWordScaling = input.textItem.desiredWordScaling;
+            res.textItem.direction = input.textItem.direction;
+            res.textItem.fauxBold = input.textItem.fauxBold;
+            res.textItem.fauxItalic = input.textItem.fauxItalic;
+            res.textItem.firstLineIndent = input.textItem.firstLineIndent;
+            res.textItem.font = input.textItem.font;
+            res.textItem.hangingPunctation = input.textItem.hangingPunctation;
+            // res.textItem.height = input.textItem.height; // TODO: only in PARAGRAPHTEXT
+        }
+
         res.transparentPixelsLocked = input.transparentPixelsLocked;
         // res.vectorMaskDensity = input.vectorMaskDensity;
         // res.vectorMaskFeather = input.vectorMaskFeather;
@@ -94,7 +117,7 @@ function mapLayer(input, res) {
         res.name = input.name;
         res.opacity = input.opacity;
         res.visible = input.visible;
-     }
+    }
 }
 
 res.layers = [];

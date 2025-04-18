@@ -36,6 +36,12 @@ exports[`Message Processor > should get info 1`] = `
           "opacity": 100,
           "pixelsLocked": false,
           "positionLocked": false,
+          "textItem": {
+            "contents": "a",
+            "fauxBold": false,
+            "fauxItalic": false,
+            "font": "DejaVuSans"
+          },
           "transparentPixelsLocked": false,
           "visible": true
         },
