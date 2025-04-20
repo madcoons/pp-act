@@ -17,6 +17,7 @@ export interface TextItemInfo {
 
 export interface LayerInfoBase {
   typename: string;
+  id: string;
 }
 
 export interface ArtLayerInfo {

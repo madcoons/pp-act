@@ -27,6 +27,7 @@ exports[`Message Processor > should get info 1`] = `
   "layers": [
     {
       "typename": "LayerSet",
+      "id": "WzBd",
       "allLocked": false,
       "bounds": [
         0,
@@ -37,6 +38,7 @@ exports[`Message Processor > should get info 1`] = `
       "layers": [
         {
           "typename": "ArtLayer",
+          "id": "WzAsMF0=",
           "allLocked": false,
           "blendMode": "NORMAL",
           "bounds": [
@@ -76,6 +78,7 @@ exports[`Message Processor > should get info 1`] = `
         },
         {
           "typename": "ArtLayer",
+          "id": "WzAsMV0=",
           "allLocked": false,
           "blendMode": "NORMAL",
           "bounds": [
@@ -102,6 +105,7 @@ exports[`Message Processor > should get info 1`] = `
     },
     {
       "typename": "ArtLayer",
+      "id": "WzFd",
       "allLocked": false,
       "blendMode": "NORMAL",
       "bounds": [
@@ -123,6 +127,7 @@ exports[`Message Processor > should get info 1`] = `
     },
     {
       "typename": "ArtLayer",
+      "id": "WzJd",
       "allLocked": false,
       "blendMode": "NORMAL",
       "bounds": [
@@ -144,6 +149,7 @@ exports[`Message Processor > should get info 1`] = `
     },
     {
       "typename": "ArtLayer",
+      "id": "WzNd",
       "allLocked": false,
       "blendMode": "NORMAL",
       "bounds": [

@@ -143,8 +143,9 @@ function mapLanguage(value) {
     }
 }
 
-function mapLayer(input, res) {
+function mapLayer(input, res, indexPath) {
     res.typename = input.typename;
+    res.id = btoa(JSON.stringify(indexPath));
     if (input.typename === "ArtLayer") {
         res.allLocked = input.allLocked;
         res.blendMode = mapBlendMode(input.blendMode);
@@ -279,7 +280,9 @@ function mapLayer(input, res) {
         res.layers = [];
         for (let i = 0; i < input.layers.length; i++) {
             const deepRes = {};
-            mapLayer(input.layers[i], deepRes);
+            const subIndexPath = JSON.parse(JSON.stringify(indexPath));
+            subIndexPath.push(i);
+            mapLayer(input.layers[i], deepRes, subIndexPath);
             res.layers.push(deepRes);
         }
 
@@ -320,7 +323,7 @@ res.width = app.activeDocument.width;
 res.layers = [];
 for (let i = 0; i < app.activeDocument.layers.length; i++) {
     let resLayer = {};
-    mapLayer(app.activeDocument.layers[i], resLayer);
+    mapLayer(app.activeDocument.layers[i], resLayer, [i]);
     res.layers.push(resLayer);
 }
 `;
