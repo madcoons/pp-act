@@ -1,3 +1,4 @@
+import MessageActionProcessorDuplicateIntoSmartObjectLayer from "./message-action-processors/impl/duplicate-into-smart-object-layer.js";
 import MessageActionProcessorExport from "./message-action-processors/impl/export.js";
 import MessageActionProcessorGetInfo from "./message-action-processors/impl/get-info.js";
 import MessageActionProcessorLoadFromBuffer from "./message-action-processors/impl/load-from-buffer.js";
@@ -12,7 +13,11 @@ export const processMessage = async (
   const state = new MessageActionProcessorState(iframe);
 
   for (const action of message.actions) {
-    if (action.type === "MessageActionExport") {
+    if (action.type === "MessageActionDuplicateIntoSmartObjectLayer") {
+      await new MessageActionProcessorDuplicateIntoSmartObjectLayer(
+        action
+      ).process(state);
+    } else if (action.type === "MessageActionExport") {
       await new MessageActionProcessorExport(action).process(state);
     } else if (action.type === "MessageActionGetInfo") {
       await new MessageActionProcessorGetInfo(action).process(state);

@@ -1,3 +1,7 @@
+import ValidationError from "./validation-error.js";
+
+const validationErrorPrefix = "ValidationError:";
+
 export const executeScript = async (
   iframe: HTMLIFrameElement,
   script: string
@@ -7,7 +11,7 @@ export const executeScript = async (
     throw new Error("iframe contentWindow is null.");
   }
 
-  return await new Promise<string | ArrayBuffer | null>((resolve) => {
+  return await new Promise<string | ArrayBuffer | null>((resolve, reject) => {
     let remainingDoneMsgs = 1;
     let result: string | ArrayBuffer | null = null;
 
@@ -18,6 +22,14 @@ export const executeScript = async (
 
       if (ev.data === "done") {
         remainingDoneMsgs--;
+      } else if (
+        typeof ev.data === "string" &&
+        ev.data.startsWith(validationErrorPrefix)
+      ) {
+        window.removeEventListener("message", onMessage);
+        reject(
+          new ValidationError(ev.data.slice(validationErrorPrefix.length))
+        );
       } else if (ev.data instanceof ArrayBuffer) {
         result = ev.data;
         remainingDoneMsgs--;

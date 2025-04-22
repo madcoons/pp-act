@@ -1,3 +1,20 @@
+export interface MessageActionDuplicateIntoSmartObjectLayer {
+  type: "MessageActionDuplicateIntoSmartObjectLayer";
+  sourceId: string;
+  targetId: string;
+  layerId: string;
+  /**
+   * Could be `fill`, `contain`, `cover`, `none`, `scale-down`, `width` or `height`.
+   * Refer to CSS `object-fit` for more details.
+   */
+  fit: string;
+  /**
+   * Refer to CSS `object-position` for more details.
+   */
+  position: string;
+  clearSmartObject: boolean;
+}
+
 export interface MessageActionExport {
   type: "MessageActionExport";
   sourceId: string;
@@ -25,6 +42,7 @@ export interface MessageActionLoadFromUrl {
 }
 
 export type MessageAction =
+  | MessageActionDuplicateIntoSmartObjectLayer
   | MessageActionExport
   | MessageActionGetInfo
   | MessageActionLoadFromBuffer
