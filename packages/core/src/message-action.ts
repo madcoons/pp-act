@@ -15,8 +15,16 @@ export interface MessageActionDuplicateIntoSmartObjectLayer {
   clearSmartObject: boolean;
 }
 
-export interface MessageActionExport {
-  type: "MessageActionExport";
+export interface MessageActionExportBlob {
+  type: "MessageActionExportBlob";
+  sourceId: string;
+  resultId: string;
+  mimeType: "image/png" | "image/jpeg" | "image/webp";
+  quality?: number;
+}
+
+export interface MessageActionExportDataURL {
+  type: "MessageActionExportDataURL";
   sourceId: string;
   resultId: string;
   mimeType: "image/png" | "image/jpeg" | "image/webp";
@@ -43,7 +51,8 @@ export interface MessageActionLoadFromUrl {
 
 export type MessageAction =
   | MessageActionDuplicateIntoSmartObjectLayer
-  | MessageActionExport
+  | MessageActionExportBlob
+  | MessageActionExportDataURL
   | MessageActionGetInfo
   | MessageActionLoadFromBuffer
   | MessageActionLoadFromUrl;

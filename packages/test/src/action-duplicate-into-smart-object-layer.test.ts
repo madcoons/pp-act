@@ -7,7 +7,7 @@ describe(
   { concurrency: true },
   () => {
     it("should fit: 'none' with same dimensions", async (t) => {
-      const resImageBase64 = await runInBrowser(
+      const resImageDataURL = await runInBrowser(
         `
       const psd = await fetch("/data/simple-100x100-smart-object-50x50.psd").then(x => x.arrayBuffer());
       const file = await fetch("/data/simple-50x50.png").then(x => x.arrayBuffer());
@@ -35,7 +35,7 @@ describe(
             clearSmartObject: false,
           },
           {
-            type: "MessageActionExport",
+            type: "MessageActionExportDataURL",
             sourceId: "psd",
             resultId: "resPng",
             mimeType: "image/png",
@@ -45,12 +45,12 @@ describe(
 
       const procRes = await processMessage(iframe, message);
 
-      const image = procRes.find(x => x.id === "resPng").data;
-      return await bufferToBase64(image);
+      const url = procRes.find(x => x.id === "resPng").url;
+      return url;
       `
       );
 
-      t.assert.snapshot(resImageBase64);
+      t.assert.snapshot(resImageDataURL);
     });
   }
 );

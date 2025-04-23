@@ -1,9 +1,15 @@
 import type { DocumentInfo } from "./document-info.js";
 
-export interface MessageResultExport {
-  type: "MessageResultExport";
+export interface MessageResultExportBlob {
+  type: "MessageResultExportBlob";
   id: string;
-  data: ArrayBuffer;
+  blob: Blob;
+}
+
+export interface MessageResultExportDataURL {
+  type: "MessageResultExportDataURL";
+  id: string;
+  url: string;
 }
 
 export interface MessageResultGetInfo {
@@ -12,4 +18,7 @@ export interface MessageResultGetInfo {
   info: DocumentInfo;
 }
 
-export type MessageResult = MessageResultExport | MessageResultGetInfo;
+export type MessageResult =
+  | MessageResultExportBlob
+  | MessageResultExportDataURL
+  | MessageResultGetInfo;

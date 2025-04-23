@@ -1,5 +1,6 @@
 import MessageActionProcessorDuplicateIntoSmartObjectLayer from "./message-action-processors/impl/duplicate-into-smart-object-layer.js";
-import MessageActionProcessorExport from "./message-action-processors/impl/export.js";
+import MessageActionProcessorExportBlob from "./message-action-processors/impl/exportBlob.js";
+import MessageActionProcessorExportDataURL from "./message-action-processors/impl/exportDataURL.js";
 import MessageActionProcessorGetInfo from "./message-action-processors/impl/get-info.js";
 import MessageActionProcessorLoadFromBuffer from "./message-action-processors/impl/load-from-buffer.js";
 import MessageActionProcessorLoadFromUrl from "./message-action-processors/impl/load-from-url.js";
@@ -17,8 +18,10 @@ export const processMessage = async (
       await new MessageActionProcessorDuplicateIntoSmartObjectLayer(
         action
       ).process(state);
-    } else if (action.type === "MessageActionExport") {
-      await new MessageActionProcessorExport(action).process(state);
+    } else if (action.type === "MessageActionExportBlob") {
+      await new MessageActionProcessorExportBlob(action).process(state);
+    } else if (action.type === "MessageActionExportDataURL") {
+      await new MessageActionProcessorExportDataURL(action).process(state);
     } else if (action.type === "MessageActionGetInfo") {
       await new MessageActionProcessorGetInfo(action).process(state);
     } else if (action.type === "MessageActionLoadFromBuffer") {
