@@ -7,9 +7,10 @@ describe(
   { concurrency: true },
   () => {
     it("should fit: 'none' with same dimensions", async (t) => {
-      const resImageBase64 = await runInBrowser(`
-      const psd = await fetch("/data/smart-object-1000x1000.psd").then(x => x.arrayBuffer());
-      const file = await fetch("/data/simple-1000x1000.png").then(x => x.arrayBuffer());
+      const resImageBase64 = await runInBrowser(
+        `
+      const psd = await fetch("/data/simple-100x100-smart-object-50x50.psd").then(x => x.arrayBuffer());
+      const file = await fetch("/data/simple-50x50.png").then(x => x.arrayBuffer());
 
       const message = {
         id: "1",
@@ -46,7 +47,8 @@ describe(
 
       const image = procRes.find(x => x.id === "resPng").data;
       return await bufferToBase64(image);
-      `, true);
+      `
+      );
 
       t.assert.snapshot(resImageBase64);
     });
