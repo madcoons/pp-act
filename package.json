@@ -8,7 +8,7 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "test-us": "npm run test-us --workspaces --if-present",
-    "patch": "npm version patch --workspaces --include-workspace-root",
+    "patch": "npm version patch --git-tag-version false --workspaces --include-workspace-root",
     "publish-core": "npm -w pp-act-core publish --access public"
   },
   "repository": {
