@@ -20,7 +20,7 @@ export interface LayerInfoBase {
   id: string;
 }
 
-export interface ArtLayerInfo {
+export interface ArtLayerInfo extends LayerInfoBase {
   typename: "ArtLayer";
   allLocked: boolean;
   blendMode: string;
@@ -38,7 +38,7 @@ export interface ArtLayerInfo {
   visible: boolean;
 }
 
-export interface LayerSetInfo {
+export interface LayerSetInfo extends LayerInfoBase {
   typename: "LayerSet";
   allLocked: boolean;
   bounds: number[];
