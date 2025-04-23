@@ -1,3 +1,5 @@
+export type TextType = "PARAGRAPHTEXT" | "POINTTEXT";
+
 export interface TextItemInfo {
   content: boolean;
   fauxBold: boolean;
@@ -6,7 +8,7 @@ export interface TextItemInfo {
   height?: number;
   horizontalScale: number;
   justification: string;
-  kind: string;
+  kind: TextType;
   leading: number;
   ligatures: boolean;
   position: number[];
@@ -20,6 +22,31 @@ export interface LayerInfoBase {
   id: string;
 }
 
+export type LayerKind =
+  | "BLACKANDWHITE"
+  | "BRIGHTNESSCONTRAST"
+  | "CHANNELMIXER"
+  | "COLORBALANCE"
+  | "CURVES"
+  | "EXPOSURE"
+  | "GRADIENTFILL"
+  | "GRADIENTMAP"
+  | "HUESATURATION"
+  | "INVERSION"
+  | "LEVELS"
+  | "NORMAL"
+  | "PATTERNFILL"
+  | "PHOTOFILTER"
+  | "POSTERIZE"
+  | "SELECTIVECOLOR"
+  | "SMARTOBJECT"
+  | "SOLIDFILL"
+  | "TEXT"
+  | "THRESHOLD"
+  | "LAYER3D"
+  | "VIBRANCE"
+  | "VIDEO";
+
 export interface ArtLayerInfo extends LayerInfoBase {
   typename: "ArtLayer";
   allLocked: boolean;
@@ -28,7 +55,7 @@ export interface ArtLayerInfo extends LayerInfoBase {
   fillOpacity: number;
   grouped: boolean;
   isBackgroundLayer: boolean;
-  kind: string;
+  kind: LayerKind;
   name: string;
   opacity: number;
   pixelsLocked: boolean;
