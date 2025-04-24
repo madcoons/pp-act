@@ -104,8 +104,8 @@ class MessageActionProcessorDuplicateIntoSmartObjectLayer
       scaleX = Math.max(wScaleDiff, hScaleDiff);
       scaleY = scaleX;
     } else if (fit === "fill") {
-      scaleX = hScaleDiff;
-      scaleY = wScaleDiff;
+      scaleX = wScaleDiff;
+      scaleY = hScaleDiff;
     } else if (fit === "none") {
       scaleX = 1;
       scaleY = 1;
