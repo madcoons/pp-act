@@ -1,11 +1,13 @@
 import { executeScript } from "../../execute-script.js";
 import { exposeDuplicateDocumentFunction } from "../../known-scripts/expose-duplicate-document-function.js";
+import { exposeEvaluatePositionExpression } from "../../known-scripts/expose-evaluate-position-expression.js";
 import { exposeFindLayerFunction } from "../../known-scripts/expose-find-layer-funciton.js";
 import type { MessageActionDuplicateIntoSmartObjectLayer } from "../../message-action.js";
 import ValidationError from "../../validation-error.js";
 import type { MessageActionProcessorState } from "../message-action-processor-state.js";
 import type { MessageActionProcessor } from "../message-action-processor.js";
 import { tryParseLayerId } from "../utils/layer-id-parser.js";
+import { parseObjectPosition } from "../utils/object-position-parser.js";
 
 class MessageActionProcessorDuplicateIntoSmartObjectLayer
   implements MessageActionProcessor
@@ -97,7 +99,38 @@ class MessageActionProcessorDuplicateIntoSmartObjectLayer
 
     await executeScript(state.iframe, duplicateToSmartLayer);
 
-    // TODO: position layer
+    const position = parseObjectPosition(this.action.position);
+    const positionScript = `
+    ${exposeEvaluatePositionExpression}
+    
+    const sourceWidth = app.documents[app.documents.length - 1].width;
+    const sourceHeight = app.documents[app.documents.length -1].height;
+
+    const destinationWidth = app.documents[app.documents.length - 2].width;
+    const destinationHeight = app.documents[app.documents.length - 2].height;
+
+    const diffX = destinationWidth - sourceWidth;
+    const diffY = destinationHeight - sourceHeight;
+
+    const position = ${JSON.stringify(position)};
+    
+    const dx = evaluatePositionValue(position.h, diffX * 0.01);
+    if (dx) {
+      const dy = evaluatePositionValue(position.v, diffY * 0.01);
+      if (dy) {
+        const oldRulerUnits = app.preferences.rulerUnits;
+        app.preferences.rulerUnits = Units.PIXELS;
+
+        app.activeDocument = app.documents[app.documents.length - 2];
+        console.log({dx, dy});
+        app.activeDocument.layers[0].translate(dx.value, dy.value);
+
+        app.preferences.rulerUnits = oldRulerUnits;
+      }
+    }
+    `;
+
+    await executeScript(state.iframe, positionScript);
 
     const saveAndClose = `
   app.activeDocument = app.documents[app.documents.length - 2];

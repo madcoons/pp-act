@@ -1,5 +1,6 @@
 import ValidationError from "./validation-error.js";
 
+const errorPrefix = "Error:";
 const validationErrorPrefix = "ValidationError:";
 
 export const executeScript = async (
@@ -22,6 +23,12 @@ export const executeScript = async (
 
       if (ev.data === "done") {
         remainingDoneMsgs--;
+      } else if (
+        typeof ev.data === "string" &&
+        ev.data.startsWith(errorPrefix)
+      ) {
+        window.removeEventListener("message", onMessage);
+        reject(new Error(ev.data.slice(errorPrefix.length)));
       } else if (
         typeof ev.data === "string" &&
         ev.data.startsWith(validationErrorPrefix)
