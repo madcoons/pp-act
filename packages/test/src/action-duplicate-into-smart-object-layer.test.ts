@@ -287,5 +287,53 @@ describe(
 
       t.assert.snapshot(resImageDataURL);
     });
+
+
+    it("should clear smart object", async (t) => {
+      const resImageDataURL = await runInBrowser(
+        `
+      const psd = await fetch("/data/simple-100x100-smart-object-50x50.psd").then(x => x.arrayBuffer());
+      const file = await fetch("/data/simple-50x50.png").then(x => x.arrayBuffer());
+
+      const message = {
+        id: "1",
+        actions: [
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "psd",
+            buffer: psd,
+          },
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "file",
+            buffer: file,
+          },
+          {
+            type: "MessageActionDuplicateIntoSmartObjectLayer",
+            sourceId: "file",
+            targetId: "psd",
+            layerId: "WzBd",
+            fit: "none",
+            position: "center",
+            clearSmartObject: true,
+          },
+          {
+            type: "MessageActionExportDataURL",
+            sourceId: "psd",
+            resultId: "resPng",
+            mimeType: "image/png",
+          },
+        ],
+      };
+
+      const procRes = await processMessage(iframe, message);
+
+      const url = procRes.find(x => x.id === "resPng").url;
+      return url;
+      `
+      );
+
+      t.assert.snapshot(resImageDataURL);
+    });
   }
 );
