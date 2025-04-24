@@ -52,6 +52,7 @@ describe(
 
       t.assert.snapshot(resImageDataURL);
     });
+
     it("should fit: 'none' and position: 'center' using larger input", async (t) => {
       const resImageDataURL = await runInBrowser(
         `
@@ -77,6 +78,100 @@ describe(
             targetId: "psd",
             layerId: "WzBd",
             fit: "none",
+            position: "center",
+            clearSmartObject: false,
+          },
+          {
+            type: "MessageActionExportDataURL",
+            sourceId: "psd",
+            resultId: "resPng",
+            mimeType: "image/png",
+          },
+        ],
+      };
+
+      const procRes = await processMessage(iframe, message);
+
+      const url = procRes.find(x => x.id === "resPng").url;
+      return url;
+      `
+      );
+
+      t.assert.snapshot(resImageDataURL);
+    });
+
+    it("should fit: 'scale-down' and position: 'center' using larger input", async (t) => {
+      const resImageDataURL = await runInBrowser(
+        `
+      const psd = await fetch("/data/simple-100x100-smart-object-50x50.psd").then(x => x.arrayBuffer());
+      const file = await fetch("/data/simple-80x80.png").then(x => x.arrayBuffer());
+
+      const message = {
+        id: "1",
+        actions: [
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "psd",
+            buffer: psd,
+          },
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "file",
+            buffer: file,
+          },
+          {
+            type: "MessageActionDuplicateIntoSmartObjectLayer",
+            sourceId: "file",
+            targetId: "psd",
+            layerId: "WzBd",
+            fit: "scale-down",
+            position: "center",
+            clearSmartObject: false,
+          },
+          {
+            type: "MessageActionExportDataURL",
+            sourceId: "psd",
+            resultId: "resPng",
+            mimeType: "image/png",
+          },
+        ],
+      };
+
+      const procRes = await processMessage(iframe, message);
+
+      const url = procRes.find(x => x.id === "resPng").url;
+      return url;
+      `
+      );
+
+      t.assert.snapshot(resImageDataURL);
+    });
+
+    it("should fit: 'scale-down' and position: 'center' using smaller input", async (t) => {
+      const resImageDataURL = await runInBrowser(
+        `
+      const psd = await fetch("/data/simple-100x100-smart-object-50x50.psd").then(x => x.arrayBuffer());
+      const file = await fetch("/data/simple-40x40.png").then(x => x.arrayBuffer());
+
+      const message = {
+        id: "1",
+        actions: [
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "psd",
+            buffer: psd,
+          },
+          {
+            type: "MessageActionLoadFromBuffer",
+            targetId: "file",
+            buffer: file,
+          },
+          {
+            type: "MessageActionDuplicateIntoSmartObjectLayer",
+            sourceId: "file",
+            targetId: "psd",
+            layerId: "WzBd",
+            fit: "scale-down",
             position: "center",
             clearSmartObject: false,
           },

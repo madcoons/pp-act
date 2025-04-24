@@ -81,6 +81,53 @@ class MessageActionProcessorDuplicateIntoSmartObjectLayer
     await executeScript(state.iframe, mergeSourceLayers);
 
     // TODO: resize duplicated source
+    const resizeSourceScript = `
+    const sourceWidth = app.documents[app.documents.length - 1].width;
+    const sourceHeight = app.documents[app.documents.length -1].height;
+
+    const destinationWidth = app.documents[app.documents.length - 2].width;
+    const destinationHeight = app.documents[app.documents.length - 2].height;
+
+    const wScaleDiff = destinationWidth / sourceWidth;
+    const hScaleDiff = destinationHeight / sourceHeight;
+
+    const fit = ${JSON.stringify(this.action.fit)};
+
+    
+    let scaleX;
+    let scaleY;
+    
+    if (fit === "contain") {
+      scaleX = Math.min(wScaleDiff, hScaleDiff);
+      scaleY = scaleX;
+    } else if (fit === "cover") {
+      scaleX = Math.max(wScaleDiff, hScaleDiff);
+      scaleY = scaleX;
+    } else if (fit === "fill") {
+      scaleX = hScaleDiff;
+      scaleY = wScaleDiff;
+    } else if (fit === "none") {
+      scaleX = 1;
+      scaleY = 1;
+    } else if (fit === "scale-down") {
+      scaleX = Math.min(wScaleDiff, hScaleDiff, 1);
+      scaleY = scaleX;
+    } else if (fit === "width") {
+      scaleX = wScaleDiff;
+      scaleY = scaleX;
+    } else if (fit === "height") {
+      scaleX = hScaleDiff;
+      scaleY = scaleX;
+    } else {
+      scaleX = 1;
+      scaleY = 1;
+    }
+
+    app.activeDocument = app.documents[app.documents.length - 1];
+    app.activeDocument.resizeImage(sourceWidth * scaleX, sourceHeight * scaleY);
+    `;
+
+    await executeScript(state.iframe, resizeSourceScript);
 
     const duplicateToSmartLayer =
       `
