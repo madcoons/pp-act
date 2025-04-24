@@ -71,17 +71,17 @@ class MessageActionProcessorDuplicateIntoSmartObjectLayer
 
     await executeScript(state.iframe, duplicateSource);
 
-    const flattenSource = `
+    const mergeSourceLayers = `
     app.activeDocument = app.documents[app.documents.length - 1];
-    app.activeDocument.flatten();
+    while (app.activeDocument.layers.length > 1) {
+      app.activeDocument.layers[0].merge();
+    }
     `;
 
-    // await executeScript(state.iframe, flattenSource);
-    // await new Promise((r) => setTimeout(r, 1_000));
+    await executeScript(state.iframe, mergeSourceLayers);
 
     // TODO: resize duplicated source
 
-    // TODO: duplicate layer to smart object
     const duplicateToSmartLayer =
       `
     app.activeDocument = app.documents[app.documents.length - 1];
