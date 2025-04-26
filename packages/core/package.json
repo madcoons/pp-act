@@ -7,14 +7,7 @@
     "build": "tsc --build"
   },
   "exports": {
-    "./document-info.js": "./dist/src/document-info.js",
-    "./execute-script.js": "./dist/src/execute-script.js",
-    "./layer-info.js": "./dist/src/layer-info.js",
-    "./load-iframe.js": "./dist/src/load-iframe.js",
-    "./message-action.js": "./dist/src/message-action.js",
-    "./message-result.js": "./dist/src/message-result.js",
-    "./message.js": "./dist/src/message.js",
-    "./process-message.js": "./dist/src/process-message.js"
+    ".": "./dist/src/index.js"
   },
   "files": [
     "dist/"

@@ -1,14 +1,14 @@
-import { executeScript } from "../../execute-script.js";
-import type { MessageActionExportBlob } from "../../message-action.js";
-import ValidationError from "../../validation-error.js";
-import type { MessageActionProcessorState } from "../message-action-processor-state.js";
-import type { MessageActionProcessor } from "../message-action-processor.js";
+import type { PPActionExportBlob } from "../../actions/pp-action-export-blob.js";
+import { executeScript } from "../../pp-interop/execute-script.js";
+import ValidationError from "../../errors/validation-error.js";
+import type { PPActionProcessorState } from "../pp-action-processor-state.js";
+import type { PPActionProcessor } from "../pp-action-processor.js";
 import { mimeTypeToPPFormat } from "../utils/mime-type-to-pp-format.js";
 
-class MessageActionProcessorExportBlob implements MessageActionProcessor {
-  constructor(private action: MessageActionExportBlob) {}
+class PPActionProcessorExportBlob implements PPActionProcessor {
+  constructor(private action: PPActionExportBlob) {}
 
-  async process(state: MessageActionProcessorState): Promise<void> {
+  async process(state: PPActionProcessorState): Promise<void> {
     const sourceIndex = state.documentKeyToIndexMap.get(this.action.sourceId);
     if (sourceIndex === undefined) {
       throw new ValidationError(
@@ -30,7 +30,7 @@ class MessageActionProcessorExportBlob implements MessageActionProcessor {
     if (data instanceof ArrayBuffer) {
       const blob = new Blob([data], { type: this.action.mimeType });
       state.result.push({
-        type: "MessageResultExportBlob",
+        type: "ExportBlob",
         id: this.action.resultId,
         blob: blob,
       });
@@ -40,4 +40,4 @@ class MessageActionProcessorExportBlob implements MessageActionProcessor {
   }
 }
 
-export default MessageActionProcessorExportBlob;
+export default PPActionProcessorExportBlob;

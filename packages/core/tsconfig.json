@@ -2,6 +2,6 @@
   "extends": "../../tsconfigs/tsconfig.browser.json",
   "compilerOptions": {
     "outDir": "dist",
-    "sourceRoot": "https://raw.githubusercontent.com/madcoons/pp-act/v1.0.0/packages/core"
+    // "sourceRoot": "https://raw.githubusercontent.com/madcoons/pp-act/v1.0.0/packages/core"
   }
 }

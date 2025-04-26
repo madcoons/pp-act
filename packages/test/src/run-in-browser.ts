@@ -1,7 +1,6 @@
 import express from "express";
 import http from "node:http";
 import path from "node:path";
-import url from "node:url";
 import puppeteer from "puppeteer";
 
 const loadIndex = async (content: string) => {
@@ -10,11 +9,6 @@ const loadIndex = async (content: string) => {
   app.get("/", (_, res) => {
     res.contentType("text/html; charset=utf-8").status(200).send(content);
   });
-
-  const getCoreModulePath = (module: string) => {
-    const moduleUrl = import.meta.resolve(`pp-act-core/${module}`);
-    return url.fileURLToPath(moduleUrl);
-  };
 
   app.use(
     "/core",
@@ -124,7 +118,7 @@ export const runInBrowser = async <TRes>(
               }
 
               const getIFrame = async () => {
-                const { loadIFrame } = await import("/core/dist/src/load-iframe.js");
+                const { loadIFrame } = await import("/core/dist/src/index.js");
                 const iframe = await loadIFrame(iframe => {
                   // iframe.src = "https://photopea.com#%7B%7D";
                   iframe.src = "https://cdn.mydesigns.io/pp/v1/index.html#%7B%22serial_key%22%3A%228e18d7f4665270a6%22%7D";
@@ -135,8 +129,7 @@ export const runInBrowser = async <TRes>(
               };
 
               globalThis.run = async () => {
-                const { processMessage } = await import("/core/dist/src/process-message.js");
-                const { executeScript } = await import("/core/dist/src/execute-script.js");
+                const { processActions, executeScript } = await import("/core/dist/src/index.js");
 
                 const iframe = await getIFrame();
 

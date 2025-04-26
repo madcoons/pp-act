@@ -1,7 +1,7 @@
-import { executeScript } from "../../execute-script.js";
-import type { MessageActionGetInfo } from "../../message-action.js";
-import type { MessageActionProcessorState } from "../message-action-processor-state.js";
-import type { MessageActionProcessor } from "../message-action-processor.js";
+import type { PPActionGetInfo } from "../../actions/pp-action-get-info.js";
+import { executeScript } from "../../pp-interop/execute-script.js";
+import type { PPActionProcessorState } from "../pp-action-processor-state.js";
+import type { PPActionProcessor } from "../pp-action-processor.js";
 
 const populateJsonScript = `
 function mapArray(array, cb) {
@@ -328,10 +328,10 @@ for (let i = 0; i < app.activeDocument.layers.length; i++) {
 }
 `;
 
-class MessageActionProcessorGetInfo implements MessageActionProcessor {
-  constructor(private action: MessageActionGetInfo) {}
+class PPActionProcessorGetInfo implements PPActionProcessor {
+  constructor(private action: PPActionGetInfo) {}
 
-  async process(state: MessageActionProcessorState): Promise<void> {
+  async process(state: PPActionProcessorState): Promise<void> {
     const sourceIndex = state.documentKeyToIndexMap.get(this.action.sourceId);
     if (sourceIndex === undefined) {
       throw new Error(`Source id '${this.action.sourceId}' is not found.`);
@@ -349,11 +349,11 @@ class MessageActionProcessorGetInfo implements MessageActionProcessor {
     }
 
     state.result.push({
-      type: "MessageResultGetInfo",
+      type: "GetInfo",
       id: this.action.resultId,
       info: JSON.parse(infoRes),
     });
   }
 }
 
-export default MessageActionProcessorGetInfo;
+export default PPActionProcessorGetInfo;

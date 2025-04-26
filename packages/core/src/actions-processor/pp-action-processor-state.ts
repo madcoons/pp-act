@@ -1,10 +1,10 @@
-import type { MessageResult } from "../message-result.js";
+import type { PPActionResult } from "../action-results/pp-action-result.js";
 
-export class MessageActionProcessorState {
+export class PPActionProcessorState {
   readonly iframe: HTMLIFrameElement;
   documentCount: number;
   readonly documentKeyToIndexMap: Map<string, number>;
-  readonly result: MessageResult[];
+  readonly result: PPActionResult[];
 
   constructor(iframe: HTMLIFrameElement) {
     this.iframe = iframe;

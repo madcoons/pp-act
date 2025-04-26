@@ -1,20 +1,20 @@
-import { executeScript } from "../../execute-script.js";
+import type { PPActionDuplicateIntoSmartObjectLayer } from "../../actions/pp-action-duplicate-import-into-smart-object-layer.js";
+import { executeScript } from "../../pp-interop/execute-script.js";
 import { exposeDuplicateDocumentFunction } from "../../known-scripts/expose-duplicate-document-function.js";
 import { exposeEvaluatePositionExpression } from "../../known-scripts/expose-evaluate-position-expression.js";
 import { exposeFindLayerFunction } from "../../known-scripts/expose-find-layer-funciton.js";
-import type { MessageActionDuplicateIntoSmartObjectLayer } from "../../message-action.js";
-import ValidationError from "../../validation-error.js";
-import type { MessageActionProcessorState } from "../message-action-processor-state.js";
-import type { MessageActionProcessor } from "../message-action-processor.js";
+import ValidationError from "../../errors/validation-error.js";
+import type { PPActionProcessorState } from "../pp-action-processor-state.js";
+import type { PPActionProcessor } from "../pp-action-processor.js";
 import { tryParseLayerId } from "../utils/layer-id-parser.js";
 import { parseObjectPosition } from "../utils/object-position-parser.js";
 
-class MessageActionProcessorDuplicateIntoSmartObjectLayer
-  implements MessageActionProcessor
+class PPActionProcessorDuplicateIntoSmartObjectLayer
+  implements PPActionProcessor
 {
-  constructor(private action: MessageActionDuplicateIntoSmartObjectLayer) {}
+  constructor(private action: PPActionDuplicateIntoSmartObjectLayer) {}
 
-  async process(state: MessageActionProcessorState): Promise<void> {
+  async process(state: PPActionProcessorState): Promise<void> {
     const sourceIndex = state.documentKeyToIndexMap.get(this.action.sourceId);
     if (sourceIndex === undefined) {
       throw new ValidationError(
@@ -192,4 +192,4 @@ class MessageActionProcessorDuplicateIntoSmartObjectLayer
   }
 }
 
-export default MessageActionProcessorDuplicateIntoSmartObjectLayer;
+export default PPActionProcessorDuplicateIntoSmartObjectLayer;

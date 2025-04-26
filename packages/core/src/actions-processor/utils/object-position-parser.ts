@@ -1,4 +1,4 @@
-import ValidationError from "../../validation-error.js";
+import ValidationError from "../../errors/validation-error.js";
 
 type Token = {
   type:

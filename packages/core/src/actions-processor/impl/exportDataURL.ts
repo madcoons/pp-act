@@ -1,15 +1,15 @@
-import { executeScript } from "../../execute-script.js";
-import type { MessageActionExportDataURL } from "../../message-action.js";
-import ValidationError from "../../validation-error.js";
-import type { MessageActionProcessorState } from "../message-action-processor-state.js";
-import type { MessageActionProcessor } from "../message-action-processor.js";
+import type { PPActionExportDataURL } from "../../actions/pp-action-export-dataurl.js";
+import { executeScript } from "../../pp-interop/execute-script.js";
+import ValidationError from "../../errors/validation-error.js";
+import type { PPActionProcessorState } from "../pp-action-processor-state.js";
+import type { PPActionProcessor } from "../pp-action-processor.js";
 import { blobToDataURL } from "../utils/blob-to-data-url.js";
 import { mimeTypeToPPFormat } from "../utils/mime-type-to-pp-format.js";
 
-class MessageActionProcessorExportDataURL implements MessageActionProcessor {
-  constructor(private action: MessageActionExportDataURL) {}
+class PPActionProcessorExportDataURL implements PPActionProcessor {
+  constructor(private action: PPActionExportDataURL) {}
 
-  async process(state: MessageActionProcessorState): Promise<void> {
+  async process(state: PPActionProcessorState): Promise<void> {
     const sourceIndex = state.documentKeyToIndexMap.get(this.action.sourceId);
     if (sourceIndex === undefined) {
       throw new ValidationError(
@@ -33,7 +33,7 @@ class MessageActionProcessorExportDataURL implements MessageActionProcessor {
       const url = await blobToDataURL(blob);
 
       state.result.push({
-        type: "MessageResultExportDataURL",
+        type: "ExportDataURL",
         id: this.action.resultId,
         url: url,
       });
@@ -43,4 +43,4 @@ class MessageActionProcessorExportDataURL implements MessageActionProcessor {
   }
 }
 
-export default MessageActionProcessorExportDataURL;
+export default PPActionProcessorExportDataURL;

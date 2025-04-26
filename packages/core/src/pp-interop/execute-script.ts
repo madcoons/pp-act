@@ -1,4 +1,4 @@
-import ValidationError from "./validation-error.js";
+import ValidationError from "../errors/validation-error.js";
 
 const errorPrefix = "Error:";
 const validationErrorPrefix = "ValidationError:";

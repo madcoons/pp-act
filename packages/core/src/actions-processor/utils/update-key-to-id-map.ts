@@ -1,10 +1,10 @@
-import { executeScript } from "../../execute-script.js";
+import { executeScript } from "../../pp-interop/execute-script.js";
 import countDocsScript from "../../known-scripts/count-docs-script.js";
-import type { MessageActionProcessorState } from "../message-action-processor-state.js";
+import type { PPActionProcessorState } from "../pp-action-processor-state.js";
 
 export const updateKeyToIdMap = async (
   key: string | undefined | null,
-  state: MessageActionProcessorState
+  state: PPActionProcessorState
 ) => {
   const docsCountRes = await executeScript(state.iframe, countDocsScript);
   if (typeof docsCountRes !== "string") {
