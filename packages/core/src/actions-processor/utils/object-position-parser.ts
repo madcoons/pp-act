@@ -1,4 +1,4 @@
-import ValidationError from "../../errors/validation-error.js";
+import { ValidationError } from "../../errors/validation-error.js";
 
 type Token = {
   type:
@@ -385,10 +385,7 @@ const tryParsePercentageLiteral = (
 
 export type CalcExpression = {
   type: "calc";
-  expression:
-    | PixelsLiteral
-    | PercentageLiteral
-    | BinaryExpression;
+  expression: PixelsLiteral | PercentageLiteral | BinaryExpression;
 };
 
 const tryParseCalcExpression = (state: ParserState): CalcExpression | null => {

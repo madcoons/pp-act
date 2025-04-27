@@ -1,4 +1,4 @@
-import ValidationError from "../../errors/validation-error.js";
+import { ValidationError } from "../../errors/validation-error.js";
 
 export const mimeTypeToPPFormat = (
   mimeType: "image/png" | "image/jpeg" | "image/webp",

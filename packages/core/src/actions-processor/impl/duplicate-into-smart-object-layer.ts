@@ -3,7 +3,7 @@ import { executeScript } from "../../pp-interop/execute-script.js";
 import { exposeDuplicateDocumentFunction } from "../../known-scripts/expose-duplicate-document-function.js";
 import { exposeEvaluatePositionExpression } from "../../known-scripts/expose-evaluate-position-expression.js";
 import { exposeFindLayerFunction } from "../../known-scripts/expose-find-layer-funciton.js";
-import ValidationError from "../../errors/validation-error.js";
+import { ValidationError } from "../../errors/validation-error.js";
 import type { PPActionProcessorState } from "../pp-action-processor-state.js";
 import type { PPActionProcessor } from "../pp-action-processor.js";
 import { tryParseLayerId } from "../utils/layer-id-parser.js";

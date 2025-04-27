@@ -1,6 +1,6 @@
 import type { PPActionExportDataURL } from "../../actions/pp-action-export-dataurl.js";
 import { executeScript } from "../../pp-interop/execute-script.js";
-import ValidationError from "../../errors/validation-error.js";
+import { ValidationError } from "../../errors/validation-error.js";
 import type { PPActionProcessorState } from "../pp-action-processor-state.js";
 import type { PPActionProcessor } from "../pp-action-processor.js";
 import { blobToDataURL } from "../utils/blob-to-data-url.js";
