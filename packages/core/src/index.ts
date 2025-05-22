@@ -11,6 +11,9 @@ export * from "./actions/pp-action-export-dataurl.js";
 export * from "./actions/pp-action-get-info.js";
 export * from "./actions/pp-action-load-from-buffer.js";
 export * from "./actions/pp-action-load-from-url.js";
+export * from "./actions/pp-action-set-color.js";
+export * from "./actions/pp-action-set-text.js";
+export * from "./actions/pp-action-set-visibility.js";
 export * from "./actions/pp-action.js";
 
 export * from "./actions-processor/process-actions.js";
