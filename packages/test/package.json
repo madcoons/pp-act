@@ -5,6 +5,7 @@
   "private": false,
   "scripts": {
     "build": "tsc --build",
+    "clean": "rimraf dist",
     "test": "node --test './dist/src/**/*.test.js'",
     "test-us": "node --test --test-update-snapshots './dist/src/**/*.test.js'"
   },
@@ -17,6 +18,7 @@
     "puppeteer": "^24.6.1"
   },
   "dependencies": {
-    "pp-act-core": "^1.0.0"
+    "pp-act-core": "^1.0.0",
+    "rimraf": "^6.0.1"
   }
 }

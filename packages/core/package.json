@@ -4,7 +4,8 @@
   "type": "module",
   "private": false,
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "clean": "rimraf dist"
   },
   "exports": {
     ".": "./dist/src/index.js"
@@ -18,5 +19,8 @@
   "devDependencies": {
     "@types/node": "^22.14.1",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "rimraf": "^6.0.1"
   }
 }

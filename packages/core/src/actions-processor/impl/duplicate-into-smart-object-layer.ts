@@ -1,4 +1,4 @@
-import type { PPActionDuplicateIntoSmartObjectLayer } from "../../actions/pp-action-duplicate-import-into-smart-object-layer.js";
+import type { PPActionDuplicateIntoSmartObjectLayer } from "../../actions/pp-action-duplicate-into-smart-object-layer.js";
 import { executeScript } from "../../pp-interop/execute-script.js";
 import { exposeDuplicateDocumentFunction } from "../../known-scripts/expose-duplicate-document-function.js";
 import { exposeEvaluatePositionExpression } from "../../known-scripts/expose-evaluate-position-expression.js";

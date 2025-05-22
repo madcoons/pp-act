@@ -5,7 +5,7 @@ export * from "./action-results/pp-action-result-export-dataurl.js";
 export * from "./action-results/pp-action-result-get-info.js";
 export * from "./action-results/pp-action-result.js";
 
-export * from "./actions/pp-action-duplicate-import-into-smart-object-layer.js";
+export * from "./actions/pp-action-duplicate-into-smart-object-layer.js";
 export * from "./actions/pp-action-export-blob.js";
 export * from "./actions/pp-action-export-dataurl.js";
 export * from "./actions/pp-action-get-info.js";

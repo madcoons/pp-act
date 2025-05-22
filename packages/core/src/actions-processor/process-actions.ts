@@ -1,10 +1,11 @@
 import type { PPAction } from "../actions/pp-action.js";
 import PPActionProcessorDuplicateIntoSmartObjectLayer from "./impl/duplicate-into-smart-object-layer.js";
-import PPActionProcessorExportBlob from "./impl/exportBlob.js";
-import PPActionProcessorExportDataURL from "./impl/exportDataURL.js";
+import PPActionProcessorExportBlob from "./impl/export-blob.js";
+import PPActionProcessorExportDataURL from "./impl/export-dataurl.js";
 import PPActionProcessorGetInfo from "./impl/get-info.js";
 import PPActionProcessorLoadFromBuffer from "./impl/load-from-buffer.js";
 import PPActionProcessorLoadFromUrl from "./impl/load-from-url.js";
+import PPActionProcessorSetText from "./impl/set-text.js";
 import { PPActionProcessorState } from "./pp-action-processor-state.js";
 
 export const processActions = async (
@@ -28,6 +29,8 @@ export const processActions = async (
       await new PPActionProcessorLoadFromBuffer(action).process(state);
     } else if (action.type === "LoadFromUrl") {
       await new PPActionProcessorLoadFromUrl(action).process(state);
+    } else if (action.type === "SetText") {
+      await new PPActionProcessorSetText(action).process(state);
     } else {
       throw new Error(`Action '${JSON.stringify(action)}' is not supported.`);
     }

@@ -6,6 +6,7 @@
   "private": false,
   "scripts": {
     "build": "npm run build --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "test-us": "npm run test-us --workspaces --if-present",
     "patch": "npm version patch --git-tag-version false --workspaces --include-workspace-root",
