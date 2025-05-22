@@ -4,6 +4,7 @@ import type { PPActionExportDataURL } from "./pp-action-export-dataurl.js";
 import type { PPActionGetInfo } from "./pp-action-get-info.js";
 import type { PPActionLoadFromBuffer } from "./pp-action-load-from-buffer.js";
 import type { PPActionLoadFromUrl } from "./pp-action-load-from-url.js";
+import type { PPActionSetColor } from "./pp-action-set-color.js";
 import type { PPActionSetText } from "./pp-action-set-text.js";
 
 export type PPAction =
@@ -13,4 +14,5 @@ export type PPAction =
   | PPActionGetInfo
   | PPActionLoadFromBuffer
   | PPActionLoadFromUrl
+  | PPActionSetColor
   | PPActionSetText;
