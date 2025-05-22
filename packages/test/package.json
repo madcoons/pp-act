@@ -13,12 +13,12 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/express": "^5.0.1",
+    "@types/express": "^5.0.2",
     "express": "^5.1.0",
-    "puppeteer": "^24.6.1"
+    "puppeteer": "^24.9.0"
   },
   "dependencies": {
-    "pp-act-core": "^1.0.0",
+    "pp-act-core": "^1.0.9",
     "rimraf": "^6.0.1"
   }
 }
