@@ -2,9 +2,9 @@ import { describe, it } from "node:test";
 import { runInBrowser } from "./run-in-browser.js";
 import "./update-snapshot-path.js";
 
-describe("Action SetColor", { concurrency: true }, () => {
-  it("should set color", async (t) => {
-    const resImageDataURL = await runInBrowser(
+describe("Action SetVisibility", { concurrency: true }, () => {
+  it("should set visibility", async (t) => {
+    const resJson = await runInBrowser<string>(
       `
       const psd = await fetch("/data/simple-100x100-solid-fill.psd").then(x => x.arrayBuffer());
 
@@ -15,26 +15,36 @@ describe("Action SetColor", { concurrency: true }, () => {
           buffer: psd,
         },
         {
-          type: "SetColor",
+          type: "SetVisibility",
           targetId: "psd",
           layerId: "WzBd",
-          colorHex: "#bf6c13",
+          visible: false,
         },
         {
           type: "ExportDataURL",
           sourceId: "psd",
-          resultId: "resPng",
+          resultId: "invisiblePng",
+          mimeType: "image/png",
+        },
+        {
+          type: "SetVisibility",
+          targetId: "psd",
+          layerId: "WzBd",
+          visible: true,
+        },
+        {
+          type: "ExportDataURL",
+          sourceId: "psd",
+          resultId: "visiblePng",
           mimeType: "image/png",
         },
       ];
 
       const procRes = await processActions(iframe, actions);
-
-      const url = procRes.find(x => x.id === "resPng").url;
-      return url;
+      return JSON.stringify(procRes);
       `
     );
 
-    t.assert.snapshot(resImageDataURL);
+    t.assert.snapshot(JSON.parse(resJson));
   });
 });

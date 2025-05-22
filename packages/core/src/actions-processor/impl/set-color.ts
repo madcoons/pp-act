@@ -65,8 +65,6 @@ class PPActionProcessorSetColor implements PPActionProcessor {
         `;
 
     await executeScript(state.iframe, setColorScript);
-
-    await new Promise((r) => setTimeout(r, 1000_000));
   }
 }
 

@@ -7,6 +7,7 @@ import PPActionProcessorLoadFromBuffer from "./impl/load-from-buffer.js";
 import PPActionProcessorLoadFromUrl from "./impl/load-from-url.js";
 import PPActionProcessorSetColor from "./impl/set-color.js";
 import PPActionProcessorSetText from "./impl/set-text.js";
+import PPActionProcessorSetVisibility from "./impl/set-visibility.js";
 import { PPActionProcessorState } from "./pp-action-processor-state.js";
 
 export const processActions = async (
@@ -34,6 +35,8 @@ export const processActions = async (
       await new PPActionProcessorSetColor(action).process(state);
     } else if (action.type === "SetText") {
       await new PPActionProcessorSetText(action).process(state);
+    } else if (action.type === "SetVisibility") {
+      await new PPActionProcessorSetVisibility(action).process(state);
     } else {
       const neverAction: never = action;
       throw new Error(

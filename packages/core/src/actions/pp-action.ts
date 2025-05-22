@@ -6,6 +6,7 @@ import type { PPActionLoadFromBuffer } from "./pp-action-load-from-buffer.js";
 import type { PPActionLoadFromUrl } from "./pp-action-load-from-url.js";
 import type { PPActionSetColor } from "./pp-action-set-color.js";
 import type { PPActionSetText } from "./pp-action-set-text.js";
+import type { PPActionSetVisibility } from "./pp-action-set-visibility.js";
 
 export type PPAction =
   | PPActionDuplicateIntoSmartObjectLayer
@@ -15,4 +16,5 @@ export type PPAction =
   | PPActionLoadFromBuffer
   | PPActionLoadFromUrl
   | PPActionSetColor
-  | PPActionSetText;
+  | PPActionSetText
+  | PPActionSetVisibility;
