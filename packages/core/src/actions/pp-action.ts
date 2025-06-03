@@ -1,3 +1,4 @@
+import type { PPActionDownscale } from "./pp-action-downscale.js";
 import type { PPActionDuplicateIntoSmartObjectLayer } from "./pp-action-duplicate-into-smart-object-layer.js";
 import type { PPActionExportBlob } from "./pp-action-export-blob.js";
 import type { PPActionExportDataURL } from "./pp-action-export-dataurl.js";
@@ -9,6 +10,7 @@ import type { PPActionSetText } from "./pp-action-set-text.js";
 import type { PPActionSetVisibility } from "./pp-action-set-visibility.js";
 
 export type PPAction =
+  | PPActionDownscale
   | PPActionDuplicateIntoSmartObjectLayer
   | PPActionExportBlob
   | PPActionExportDataURL

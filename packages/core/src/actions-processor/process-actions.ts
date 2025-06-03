@@ -1,4 +1,5 @@
 import type { PPAction } from "../actions/pp-action.js";
+import PPActionProcessorDownscale from "./impl/downscale.js";
 import PPActionProcessorDuplicateIntoSmartObjectLayer from "./impl/duplicate-into-smart-object-layer.js";
 import PPActionProcessorExportBlob from "./impl/export-blob.js";
 import PPActionProcessorExportDataURL from "./impl/export-dataurl.js";
@@ -17,7 +18,9 @@ export const processActions = async (
   const state = new PPActionProcessorState(iframe);
 
   for (const action of actions) {
-    if (action.type === "DuplicateIntoSmartObjectLayer") {
+    if (action.type === "Downscale") {
+      await new PPActionProcessorDownscale(action).process(state);
+    } else if (action.type === "DuplicateIntoSmartObjectLayer") {
       await new PPActionProcessorDuplicateIntoSmartObjectLayer(action).process(
         state
       );
