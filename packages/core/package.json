@@ -1,6 +1,6 @@
 {
   "name": "pp-act-core",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "type": "module",
   "private": false,
   "scripts": {
