@@ -121,7 +121,7 @@ export const runInBrowser = async <TRes>(
                 const { loadIFrame } = await import("/core/dist/src/index.js");
                 const iframe = await loadIFrame(iframe => {
                   // iframe.src = "https://photopea.com#%7B%7D";
-                  iframe.src = "https://cdn.mydesigns.io/pp/v1/index.html#%7B%22serial_key%22%3A%228e18d7f4665270a6%22%7D";
+                  iframe.src = "https://cdn.mydesigns.io/pp/v2/index.html#%7B%22serial_key%22%3A%228e18d7f4665270a6%22%7D";
                   document.body.appendChild(iframe);
                 });
 

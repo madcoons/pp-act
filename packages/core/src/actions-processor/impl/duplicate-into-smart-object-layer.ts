@@ -80,7 +80,6 @@ class PPActionProcessorDuplicateIntoSmartObjectLayer
 
     await executeScript(state.iframe, mergeSourceLayers);
 
-    // TODO: resize duplicated source
     const resizeSourceScript = `
     const sourceWidth = app.documents[app.documents.length - 1].width;
     const sourceHeight = app.documents[app.documents.length -1].height;
@@ -93,7 +92,6 @@ class PPActionProcessorDuplicateIntoSmartObjectLayer
 
     const fit = ${JSON.stringify(this.action.fit)};
 
-    
     let scaleX;
     let scaleY;
     
@@ -133,7 +131,6 @@ class PPActionProcessorDuplicateIntoSmartObjectLayer
       `
     app.activeDocument = app.documents[app.documents.length - 1];
     app.activeDocument.layers[0].duplicate(app.documents[app.documents.length - 2]);
-    app.activeDocument = app.documents[app.documents.length - 2];
     ` +
       (this.action.clearSmartObject
         ? `
@@ -169,7 +166,6 @@ class PPActionProcessorDuplicateIntoSmartObjectLayer
         app.preferences.rulerUnits = Units.PIXELS;
 
         app.activeDocument = app.documents[app.documents.length - 2];
-        console.log({dx, dy});
         app.activeDocument.layers[0].translate(dx.value, dy.value);
 
         app.preferences.rulerUnits = oldRulerUnits;

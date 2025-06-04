@@ -31,7 +31,7 @@ exports[`Actions Processor > should export webp dataURL 1`] = `
 
 exports[`Actions Processor > should get info 1`] = `
 {
-  "name": "file.psd",
+  "name": "file",
   "height": 10,
   "mode": "RGB",
   "resolution": 72,
