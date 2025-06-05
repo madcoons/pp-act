@@ -1,0 +1,26 @@
+exports[`Action ExportDataURL > should export jpeg 1`] = `
+{
+  "url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgUGCP/EACMQAAEEAQQBBQAAAAAAAAAAAAQBAgMFEQAGBxIhEzFCUYH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AjOYOVt+VvLlsMFbGgjgGOhGDiVUjkY12Gq5vy7J58/etmbcKJP29VlnReiWQLFLNHjHR7mIrm/iqqaAzb9MdYRnG1FcQdHjoRKMx8jce2HKmU0z0H//Z",
+  "width": 10,
+  "height": 10
+}
+`;
+
+exports[`Action ExportDataURL > should export png 1`] = `
+{
+  "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAFRQTFRF////xMTEbGxsOTk5dnZ22NjYxcXFQkJCAAAABwcHU1NT2traXV1dBQUFc3NzKSkpNDQ0UFBQZWVlqampLi4uBAQEPDw8vr6++vr6TU1NJycnWFhYUBAr5AAAAEpJREFUeJxjZIADRiBiZATi30AmGyOE+5WRgQcoAGSzfmJk4P8JVsnxAYUp+B3M5HrHyCDM+IWBgZeR8SUjg8RvNqBhf16CzIUBAL6qDwu0K2x2AAAAAElFTkSuQmCC",
+  "width": 10,
+  "height": 10
+}
+`;
+
+exports[`Action ExportDataURL > should export webp 1`] = `
+1307
+`;
+
+exports[`Action ExportDataURL > should export webp 2`] = `
+{
+  "width": 10,
+  "height": 10
+}
+`;

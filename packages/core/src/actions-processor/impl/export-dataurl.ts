@@ -22,12 +22,32 @@ class PPActionProcessorExportDataURL implements PPActionProcessor {
       this.action.quality
     );
 
-    const script =
-      `app.echoToOE("expect-additional-done");\n` +
-      `app.activeDocument = app.documents[${JSON.stringify(sourceIndex)}];\n` +
-      `app.activeDocument.saveToOE(${JSON.stringify(format)});\n`;
+    const getSizeScript = `
+      app.activeDocument = app.documents[${JSON.stringify(sourceIndex)}];
+      const res = {
+          width: app.activeDocument.width,
+          height: app.activeDocument.height,
+      };
+      app.echoToOE(JSON.stringify(res));
+      `;
 
-    const data = await executeScript(state.iframe, script);
+    const resSizeJson = await executeScript(state.iframe, getSizeScript);
+    if (typeof resSizeJson !== "string") {
+      throw new Error("Something went wrong. resJson should be string.");
+    }
+
+    const resSize: { width: number; height: number } = JSON.parse(resSizeJson);
+    if (!Number.isInteger(resSize.width) || !Number.isInteger(resSize.height)) {
+      throw new Error(`Width and height are not integers. Got: ${resSizeJson}`);
+    }
+
+    const saveToOEScript = `
+      app.echoToOE("expect-additional-done");
+      app.activeDocument = app.documents[${JSON.stringify(sourceIndex)}];
+      app.activeDocument.saveToOE(${JSON.stringify(format)});
+      `;
+
+    const data = await executeScript(state.iframe, saveToOEScript);
     if (data instanceof ArrayBuffer) {
       const blob = new Blob([data], { type: this.action.mimeType });
       const url = await blobToDataURL(blob);
@@ -36,6 +56,8 @@ class PPActionProcessorExportDataURL implements PPActionProcessor {
         type: "ExportDataURL",
         id: this.action.resultId,
         url: url,
+        width: resSize.width,
+        height: resSize.height,
       });
     } else {
       throw new Error("Something went wrong. Result data is not ArrayBuffer.");

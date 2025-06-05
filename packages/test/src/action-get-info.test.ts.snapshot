@@ -1,0 +1,155 @@
+exports[`Action GetInfo > should get info 1`] = `
+{
+  "name": "file",
+  "height": 10,
+  "mode": "RGB",
+  "resolution": 72,
+  "width": 10,
+  "layers": [
+    {
+      "typename": "LayerSet",
+      "id": "WzBd",
+      "allLocked": false,
+      "bounds": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "layers": [
+        {
+          "typename": "ArtLayer",
+          "id": "WzAsMF0=",
+          "allLocked": false,
+          "blendMode": "NORMAL",
+          "bounds": [
+            -2,
+            -4,
+            10,
+            11
+          ],
+          "fillOpacity": 100,
+          "grouped": false,
+          "isBackgroundLayer": false,
+          "kind": "TEXT",
+          "name": "text layer",
+          "opacity": 100,
+          "pixelsLocked": false,
+          "positionLocked": false,
+          "textItem": {
+            "contents": "a",
+            "fauxBold": false,
+            "fauxItalic": false,
+            "font": "DejaVuSans",
+            "horizontalScale": 100,
+            "justification": "LEFT",
+            "kind": "POINTTEXT",
+            "leading": 0,
+            "ligatures": true,
+            "position": [
+              -3,
+              10
+            ],
+            "size": 24,
+            "useAutoLeading": true,
+            "verticalScale": 100
+          },
+          "transparentPixelsLocked": false,
+          "visible": true
+        },
+        {
+          "typename": "ArtLayer",
+          "id": "WzAsMV0=",
+          "allLocked": false,
+          "blendMode": "NORMAL",
+          "bounds": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "fillOpacity": 100,
+          "grouped": false,
+          "isBackgroundLayer": false,
+          "kind": "NORMAL",
+          "name": "basic layer",
+          "opacity": 100,
+          "pixelsLocked": false,
+          "positionLocked": false,
+          "transparentPixelsLocked": false,
+          "visible": true
+        }
+      ],
+      "name": "Folder 1",
+      "opacity": 100,
+      "visible": true
+    },
+    {
+      "typename": "ArtLayer",
+      "id": "WzFd",
+      "allLocked": false,
+      "blendMode": "NORMAL",
+      "bounds": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "fillOpacity": 100,
+      "grouped": false,
+      "isBackgroundLayer": false,
+      "kind": "SOLIDFILL",
+      "name": "Layer 3 - Fill",
+      "opacity": 100,
+      "pixelsLocked": false,
+      "positionLocked": false,
+      "transparentPixelsLocked": false,
+      "visible": true
+    },
+    {
+      "typename": "ArtLayer",
+      "id": "WzJd",
+      "allLocked": false,
+      "blendMode": "NORMAL",
+      "bounds": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "fillOpacity": 100,
+      "grouped": false,
+      "isBackgroundLayer": false,
+      "kind": "NORMAL",
+      "name": "Layer 2 - With mask",
+      "opacity": 100,
+      "pixelsLocked": false,
+      "positionLocked": false,
+      "transparentPixelsLocked": false,
+      "visible": true
+    },
+    {
+      "typename": "ArtLayer",
+      "id": "WzNd",
+      "allLocked": false,
+      "blendMode": "NORMAL",
+      "bounds": [
+        0,
+        0,
+        10,
+        10
+      ],
+      "fillOpacity": 100,
+      "grouped": false,
+      "isBackgroundLayer": false,
+      "kind": "NORMAL",
+      "name": "Background",
+      "opacity": 100,
+      "pixelsLocked": false,
+      "positionLocked": true,
+      "transparentPixelsLocked": false,
+      "visible": true
+    }
+  ]
+}
+`;
