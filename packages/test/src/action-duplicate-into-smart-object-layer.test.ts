@@ -354,4 +354,48 @@ describe("Action DuplicateIntoSmartObjectLayer", { concurrency: true }, () => {
 
     t.assert.snapshot(resImageDataURL);
   });
+
+  it("should clear smart object with hidden layer", async (t) => {
+    const resImageDataURL = await runInBrowser(
+      `
+      const psd = await fetch("/data/simple-100x100-smart-object-50x50-with-hidden-layer.psd").then(x => x.arrayBuffer());
+      const file = await fetch("/data/simple-50x50.png").then(x => x.arrayBuffer());
+
+      const actions = [
+        {
+          type: "LoadFromBuffer",
+          targetId: "psd",
+          buffer: psd,
+        },
+        {
+          type: "LoadFromBuffer",
+          targetId: "file",
+          buffer: file,
+        },
+        {
+          type: "DuplicateIntoSmartObjectLayer",
+          sourceId: "file",
+          targetId: "psd",
+          layerId: "WzBd",
+          fit: "none",
+          position: "center",
+          clearSmartObject: true,
+        },
+        {
+          type: "ExportDataURL",
+          sourceId: "psd",
+          resultId: "resPng",
+          mimeType: "image/png",
+        },
+      ];
+
+      const procRes = await processActions(iframe, actions);
+
+      const url = procRes.find(x => x.id === "resPng").url;
+      return url;
+      `
+    );
+
+    t.assert.snapshot(resImageDataURL);
+  });
 });
