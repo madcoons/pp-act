@@ -135,7 +135,7 @@ class PPActionProcessorDuplicateIntoSmartObjectLayer
       (this.action.clearSmartObject
         ? `
         app.activeDocument = app.documents[app.documents.length - 2];
-        for (let i = 1; i < app.activeDocument.layers.length; i++) {
+        for (let i = app.activeDocument.layers.length - 1; i > 0; i--) {
           app.activeDocument.layers[i].remove();
         }
         `
