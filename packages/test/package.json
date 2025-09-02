@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/express": "^5.0.2",
     "express": "^5.1.0",
-    "puppeteer": "^24.9.0"
+    "puppeteer": "^24.18.0"
   },
   "dependencies": {
     "pp-act-core": "^1.0.9",
