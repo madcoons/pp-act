@@ -6,6 +6,7 @@ import PPActionProcessorExportDataURL from "./impl/export-dataurl.js";
 import PPActionProcessorGetInfo from "./impl/get-info.js";
 import PPActionProcessorLoadFromBuffer from "./impl/load-from-buffer.js";
 import PPActionProcessorLoadFromUrl from "./impl/load-from-url.js";
+import PPActionProcessorResize from "./impl/resize.js";
 import PPActionProcessorSetColor from "./impl/set-color.js";
 import PPActionProcessorSetText from "./impl/set-text.js";
 import PPActionProcessorSetVisibility from "./impl/set-visibility.js";
@@ -34,6 +35,8 @@ export const processActions = async (
       await new PPActionProcessorLoadFromBuffer(action).process(state);
     } else if (action.type === "LoadFromUrl") {
       await new PPActionProcessorLoadFromUrl(action).process(state);
+    } else if (action.type === "Resize") {
+      await new PPActionProcessorResize(action).process(state);
     } else if (action.type === "SetColor") {
       await new PPActionProcessorSetColor(action).process(state);
     } else if (action.type === "SetText") {
