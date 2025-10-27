@@ -1,3 +1,5 @@
+import type { SmartObjectInfo } from "./smart-object-info.js";
+
 export type TextType = "PARAGRAPHTEXT" | "POINTTEXT";
 
 export interface TextItemInfo {
@@ -61,6 +63,7 @@ export interface ArtLayerInfo extends LayerInfoBase {
   pixelsLocked: boolean;
   positionLocked: boolean;
   textItem?: TextItemInfo;
+  smartObjectInfo?: SmartObjectInfo;
   transparentPixelsLocked: boolean;
   visible: boolean;
 }

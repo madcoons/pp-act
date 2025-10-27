@@ -1,7 +1,12 @@
+import type { DocumentInfo } from "../../action-results/document-info.js";
+import type { LayerInfo } from "../../action-results/layer-info.js";
 import type { PPActionGetInfo } from "../../actions/pp-action-get-info.js";
+import { ValidationError } from "../../errors/validation-error.js";
+import { exposeFindLayerFunction } from "../../known-scripts/expose-find-layer-funciton.js";
 import { executeScript } from "../../pp-interop/execute-script.js";
 import type { PPActionProcessorState } from "../pp-action-processor-state.js";
 import type { PPActionProcessor } from "../pp-action-processor.js";
+import { tryParseLayerId } from "../utils/layer-id-parser.js";
 
 const populateJsonScript = `
 function mapArray(array, cb) {
@@ -345,14 +350,116 @@ class PPActionProcessorGetInfo implements PPActionProcessor {
     const infoRes = await executeScript(state.iframe, script);
 
     if (typeof infoRes !== "string") {
-      throw new Error(`Info result is expected to be string.`);
+      throw new Error(`Info result is expected to be a string.`);
+    }
+
+    const info: DocumentInfo = JSON.parse(infoRes);
+
+    const oldDocsLengthStr = await executeScript(
+      state.iframe,
+      "app.echoToOE(JSON.stringify(app.documents.length));"
+    );
+
+    if (typeof oldDocsLengthStr !== "string") {
+      throw new Error(`Expected to be a string.`);
+    }
+
+    const oldDocsLength = JSON.parse(oldDocsLengthStr);
+
+    await this.populateSmartObjectInfo(state, info.layers, sourceIndex);
+
+    const newDocsLengthStr = await executeScript(
+      state.iframe,
+      "app.echoToOE(JSON.stringify(app.documents.length));"
+    );
+
+    if (typeof newDocsLengthStr !== "string") {
+      throw new Error(`Expected to be a string.`);
+    }
+
+    const newDocsLength = JSON.parse(newDocsLengthStr);
+
+    for (let i = newDocsLength - 1; i >= oldDocsLength; i--) {
+      await executeScript(
+        state.iframe,
+        `app.documents[${JSON.stringify(i)}].close();`
+      );
     }
 
     state.result.push({
       type: "GetInfo",
       id: this.action.resultId,
-      info: JSON.parse(infoRes),
+      info: info,
     });
+  }
+
+  async populateSmartObjectInfo(
+    state: PPActionProcessorState,
+    layers: LayerInfo[],
+    sourceIndex: number
+  ): Promise<void> {
+    for (const layer of layers) {
+      if (layer.typename === "LayerSet") {
+        await this.populateSmartObjectInfo(state, layer.layers, sourceIndex);
+      } else if (layer.kind === "SMARTOBJECT") {
+        const parsedLayerId = tryParseLayerId(layer.id);
+        if (!parsedLayerId) {
+          throw new ValidationError(`Layer '${layer.id}' not found.`);
+        }
+
+        const openSmartObjectScript = `
+${exposeFindLayerFunction}
+
+app.activeDocument = app.documents[${JSON.stringify(sourceIndex)}];
+const indexPath = ${parsedLayerId.indexPathJson};
+const layer = findLayer(app.activeDocument.layers, indexPath);
+if (!layer) {
+    app.echoToOE("ValidationError:Layer '${layer.id}' not found.");
+}
+
+const oldLength = app.documents.length;
+
+app.activeDocument.activeLayer = layer;
+app.echoToOE('expect-additional-done');
+executeAction(stringIDToTypeID("placedLayerEditContents"));
+
+// If smart object is already loaded, just post expected 'done'
+if (app.documents.length === oldLength) {
+    app.echoToOE('done');
+}
+
+const res = {};
+const prefix = "____id-";
+
+app.activeDocument.activeLayer = app.activeDocument.layers[0];
+if (app.activeDocument.activeLayer.name.startsWith(prefix)) {
+    res.id = app.activeDocument.activeLayer.name.slice(prefix.length);
+} else {
+    const newLayer = app.activeDocument.layers.add();
+    newLayer.visible = false;
+    newLayer.name = prefix + ${JSON.stringify(layer.id)};
+
+    res.id = ${JSON.stringify(layer.id)};
+}
+
+res.height = app.activeDocument.height;
+res.width = app.activeDocument.width;
+
+app.echoToOE(JSON.stringify(res));
+`;
+
+        const smartObjectInfoRes = await executeScript(
+          state.iframe,
+          openSmartObjectScript
+        );
+
+        if (typeof smartObjectInfoRes !== "string") {
+          throw new Error(`smartObjectInfoRes is expected to be a string.`);
+        }
+
+        layer.smartObjectInfo = JSON.parse(smartObjectInfoRes);
+      }
+    }
   }
 }
 
