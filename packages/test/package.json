@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "pp-act-core": "^1.0.16",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.1.0"
   }
 }
