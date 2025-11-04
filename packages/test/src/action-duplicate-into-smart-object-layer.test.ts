@@ -91,6 +91,62 @@ describe("Action DuplicateIntoSmartObjectLayer", { concurrency: true }, () => {
     t.assert.snapshot(resImageDataURL);
   });
 
+  const fitAndPositionTestData = [
+    ["none", "-10px -30px", "simple-80x80.png"],
+    ["none", "-50px -50px", "simple-80x80.png"],
+    ["none", "0px 0px", "simple-40x40.png"],
+    ["none", "0px 30px", "simple-80x80.png"],
+    ["none", "10px 10px", "simple-40x40.png"],
+    ["none", "10px 20px", "simple-80x80.png"],
+    ["none", "30px 0px", "simple-80x80.png"],
+  ];
+
+  for (const testData of fitAndPositionTestData) {
+    it(`should fit: '${testData[0]}' and position: '${testData[1]}'`, async (t) => {
+      const resImageDataURL = await runInBrowser(
+        `
+      const psd = await fetch("/data/simple-100x100-smart-object-50x50.psd").then(x => x.arrayBuffer());
+      const file = await fetch("/data/${testData[2]}").then(x => x.arrayBuffer());
+
+      const actions = [
+        {
+          type: "LoadFromBuffer",
+          targetId: "psd",
+          buffer: psd,
+        },
+        {
+          type: "LoadFromBuffer",
+          targetId: "file",
+          buffer: file,
+        },
+        {
+          type: "DuplicateIntoSmartObjectLayer",
+          sourceId: "file",
+          targetId: "psd",
+          layerId: "WzBd",
+          fit: "${testData[0]}",
+          position: "${testData[1]}",
+          clearSmartObject: false,
+        },
+        {
+          type: "ExportDataURL",
+          sourceId: "psd",
+          resultId: "resPng",
+          mimeType: "image/png",
+        },
+      ];
+
+      const procRes = await processActions(iframe, actions);
+
+      const url = procRes.find(x => x.id === "resPng").url;
+      return url;
+      `
+      );
+
+      t.assert.snapshot(resImageDataURL);
+    });
+  }
+
   it("should fit: 'scale-down' and position: 'center' using larger input", async (t) => {
     const resImageDataURL = await runInBrowser(
       `
