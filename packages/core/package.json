@@ -20,6 +20,6 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.1.2"
   }
 }
