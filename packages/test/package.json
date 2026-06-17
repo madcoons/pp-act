@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "rimraf dist",
-    "test": "node --test './dist/src/**/*.test.js'",
-    "test-us": "node --test --test-update-snapshots './dist/src/**/*.test.js'"
+    "test": "node --env-file=../../.env --test './dist/src/**/*.test.js'",
+    "test-us": "node --env-file=../../.env --test --test-update-snapshots './dist/src/**/*.test.js'"
   },
   "author": "",
   "license": "ISC",
